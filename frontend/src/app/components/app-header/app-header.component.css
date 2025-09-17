@@ -1,0 +1,70 @@
+.header-container {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  background-color: black;
+}
+
+.verticle-alignment-helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.profile-picture {
+  width: 40px;
+  height: 40px;
+}
+
+#roc-logo {
+  margin-right: auto;
+  overflow: hidden;
+  width: 150px;
+  height: 150px;
+  cursor: pointer;
+}
+
+h3 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.hamburger-icon {
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.head-bg {
+  position: relative;
+}
+
+.header-right {
+  margin-left: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.hamburger-container {
+  height: 100%;
+}
+
+@media screen and (max-width: 575px) {
+  .header-container .header-text {
+    display: none;
+  }
+
+  #roc-logo {
+    margin-right: auto;
+    height: 70px;
+    width: 70px;
+  }
+}
+
+button.mat-mdc-menu-item {
+  height: 35px !important;
+  display: flex;
+  align-items: center;
+}

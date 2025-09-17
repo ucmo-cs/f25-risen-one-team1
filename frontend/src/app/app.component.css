@@ -1,0 +1,28 @@
+.content-div {
+    width: 100%;
+    display: flex;
+}
+
+.content {
+    width: 90vw;
+    min-height: 80vh;
+}
+
+app-sidenav {
+    width: 10vw;
+    min-width: 120px
+}
+
+@media screen and (max-width: 575px) {
+    app-sidenav {
+        display: none;
+    }
+
+    .content {
+        width: 100%;
+    }
+}
+
+.mat-mdc-tooltip.tooltip {
+    color:red !important;
+}

@@ -1,0 +1,23 @@
+<div
+  class="header-container"
+>
+  <img
+    id="roc-logo"
+    src="/assets/RisenOneWhite.png"
+    alt="risen one consulting logo"
+    [routerLink]="'/home'"
+  />
+  <h3 class="header-text montserrat">
+    Risen One Consulting Employee Portal
+  </h3>
+  <div class="header-right">
+    <div class="verticle-alignment-helper">
+      <mat-icon id="white">account_circle</mat-icon>
+    </div>
+    <mat-icon [matMenuTriggerFor]="menu" class="hamburger-icon">menu</mat-icon>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [routerLink]="'/home'">Home</button>
+      <button mat-menu-item (click)="signOut()">Log Out</button>
+    </mat-menu>
+  </div>
+</div>

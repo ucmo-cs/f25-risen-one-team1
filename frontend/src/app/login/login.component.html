@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width-device-width, inital-scale=1.0">
+    <title>Risen One Consulting</title>
+</head>
+
+<!--Body of Home page-->
+<body>
+    <!--Main Content of Page (Hero)-->
+    <main>
+        <mat-grid-list id="grid" cols="2" rowHeight="90vh">
+            <!--Grid Tile Hero images-->
+            <mat-grid-tile>
+                <div id="hero-img">
+                    <!--Employee Image Container-->
+                    <div id="img-container">
+                        <div id="logo">
+                            <div></div>
+                        </div>
+                    </div>
+                    <!--Risen One Logo Container-->
+                    <div id="img-container2">
+                        <div id="logo2">
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </mat-grid-tile>
+            <!--Grid Tile call to action-->
+            <mat-grid-tile>
+                <div class="login-container">
+                    <mat-card class="cta-card">
+                        <mat-card-content>
+                            <h1>
+                                <span>Risen One Consulting <span id="yellow">|</span> Employee Portal</span>
+                            </h1>
+                            <h2>Login</h2>
+                            <form class="login-form" ngNoForm>
+                                <div class="form-group">
+                                    <label for="username">Username:</label>
+                                    <mat-form-field appearance="fill" class="form-field">
+                                        <input matInput id="username" name="username" type="text" required [(ngModel)]="username">
+                                    </mat-form-field>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password:</label>
+                                    <mat-form-field appearance="fill" class="form-field">
+                                        <input matInput id="password" name="password" type="password" required [(ngModel)]="password">
+                                    </mat-form-field>
+                                </div>
+                                <button mat-raised-button color="primary" class="login-button" (click)="login()">Login</button>
+                            </form>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </main>
+</body>
+</html>

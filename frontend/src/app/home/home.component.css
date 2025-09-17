@@ -1,0 +1,172 @@
+
+html {
+    background-color: #FBC900;
+}
+body {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-color: #FBC900;
+    height: fit-content;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    margin-left: 10%;
+    margin-right: 10%;
+    border-radius: 50px;  
+  }
+.box-1{
+    text-align: left; 
+    display:flex; 
+    flex-direction: column; 
+    align-items: center;
+    width: 80%;
+    margin: 0 auto;
+    border: 2px solid grey;
+}
+.box-2{
+    width: 80%;
+    margin: 0 auto;
+    border: 2px solid grey;
+    border-top: 0px;
+}
+.box-2-inside {
+    margin-left: 15px;
+    margin-top: 15px;
+}
+.box-3 {
+    width: 80%;
+    margin: 0 auto;
+    border: 2px solid grey;
+    border-top: 0px;
+    padding-bottom: 10px;
+    margin-bottom: 50px;
+}
+.certificateDropdown mat-form-field {
+    width: 30%;
+}
+p {
+    text-align: left;
+    font-family: 'Montserrat';
+    margin-left: center;
+}
+h1 {
+    font-weight: bold;
+    text-align: center;
+    font-size: 35px;
+}
+.longTextAreaBox {
+    width: 910px;
+    padding-left: 63px;
+    padding-top: 30px;
+}
+.shortTextAreaBox {
+    width: 400px; 
+    padding: 10px;
+    margin-right: 100px;
+    padding-left: 65px;
+}
+.shortBasicInput {
+    width: 375px; 
+    padding: 10px;
+    margin-right: 125px;
+    padding-left: 65px;
+}
+.shortBasicInput-cost {
+    width: 390px; 
+    padding: 10px;
+}
+.employeeName{
+    margin-right: 15px;
+    width: 300px;
+    padding-left: 65px;
+}
+.certName{
+    padding: 10px;
+    width: 385px;
+}
+.datePicker {
+    width: 390px; 
+    padding: 10px;
+}
+.datePickerSignatures{
+    width: 275px; 
+    padding: 30px;
+    margin-left: 15px;
+}
+.selectorBox {
+    padding-left: 65px;
+}
+mat-form-field {
+    overflow: visible;
+    padding-right: 200px;
+}
+
+.button-addNew {
+    border: none;
+    color: #000;
+    background-color: #FBC900;
+    padding: 15px 32px;
+    font-size: 16px;
+    margin-left: 20%;
+    border-radius: 50px;
+  }
+
+.button-exportToPDF {
+    border: 2px solid #FBC900;
+    padding: 15px 32px;
+    font-size: 16px;
+    border-radius: 50px;
+    border-radius: 50px;
+    margin-left: 67%;    
+}
+.button-save {
+    padding: 15px 32px;
+    font-size: 16px;
+    border-radius: 50px;
+    margin-left: 1%;
+}
+
+mat-checkbox {
+    text-align: left;
+    padding-left: 65px;
+}
+text-area {
+    width: 50%;
+}
+.spacer{
+    flex: 1 1 auto;
+}
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    background: black;
+    font-size: 30px;
+    height: 10%;
+    padding-right: 100px;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  .menuIcon {
+    font-size: 50px;
+    padding-bottom: 30px;
+    padding-right: 25px;
+
+}
+.accountIcon{
+    font-size: 70px;
+    padding-bottom: 40px;
+    padding-right: 100px;
+
+
+}
+  
+  span {
+    background: black;
+    color: white;
+  }

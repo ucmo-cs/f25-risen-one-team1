@@ -1,0 +1,349 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SidenavComponent should render match snapshot 1`] = `
+<div
+  id="root1"
+>
+  <mat-nav-list
+    aria-disabled="false"
+    class="mat-mdc-nav-list mat-mdc-list-base mdc-list sidenav-container"
+    role="navigation"
+  >
+    <mat-list-item
+      aria-disabled="false"
+      class="mat-mdc-list-item mdc-list-item mat-mdc-list-item-interactive _mat-animation-noopable mat-mdc-list-item-single-line mdc-list-item--with-one-line"
+      tabindex="0"
+    >
+      <span
+        class="mdc-list-item__content"
+      >
+        <span
+          class="mat-mdc-list-item-unscoped-content mdc-list-item__primary-text"
+        >
+          Home
+        </span>
+      </span>
+      <div
+        class="mat-mdc-focus-indicator"
+      />
+    </mat-list-item>
+    <mat-list-item
+      aria-disabled="false"
+      class="mat-mdc-list-item mdc-list-item mat-mdc-list-item-interactive _mat-animation-noopable mat-mdc-list-item-single-line mdc-list-item--with-one-line"
+      tabindex="0"
+    >
+      <span
+        class="mdc-list-item__content"
+      >
+        <span
+          class="mat-mdc-list-item-unscoped-content mdc-list-item__primary-text"
+        >
+          Daily Status
+        </span>
+      </span>
+      <div
+        class="mat-mdc-focus-indicator"
+      />
+    </mat-list-item>
+    <mat-list-item
+      aria-disabled="false"
+      class="mat-mdc-list-item mdc-list-item mat-mdc-list-item-interactive _mat-animation-noopable mat-mdc-list-item-single-line mdc-list-item--with-one-line"
+      tabindex="0"
+    >
+      <span
+        class="mdc-list-item__content"
+      >
+        <span
+          class="mat-mdc-list-item-unscoped-content mdc-list-item__primary-text"
+        >
+          Employee Development
+        </span>
+      </span>
+      <div
+        class="mat-mdc-focus-indicator"
+      />
+    </mat-list-item>
+    <mat-list-item
+      aria-disabled="false"
+      class="mat-mdc-list-item mdc-list-item mat-mdc-list-item-interactive _mat-animation-noopable mat-mdc-list-item-single-line mdc-list-item--with-one-line"
+      tabindex="0"
+    >
+      <span
+        class="mdc-list-item__content"
+      >
+        <span
+          class="mat-mdc-list-item-unscoped-content mdc-list-item__primary-text"
+        >
+          Time Off
+        </span>
+      </span>
+      <div
+        class="mat-mdc-focus-indicator"
+      />
+    </mat-list-item>
+    <mat-list-item
+      aria-disabled="false"
+      class="mat-mdc-list-item mdc-list-item mat-mdc-list-item-interactive _mat-animation-noopable mat-mdc-list-item-single-line mdc-list-item--with-one-line"
+      tabindex="0"
+    >
+      <span
+        class="mdc-list-item__content"
+      >
+        <span
+          class="mat-mdc-list-item-unscoped-content mdc-list-item__primary-text"
+        >
+          Projects
+        </span>
+      </span>
+      <div
+        class="mat-mdc-focus-indicator"
+      />
+    </mat-list-item>
+    <mat-list-item
+      aria-disabled="false"
+      class="mat-mdc-list-item mdc-list-item mat-mdc-list-item-interactive _mat-animation-noopable mat-mdc-list-item-single-line mdc-list-item--with-one-line"
+    >
+      <span
+        class="mdc-list-item__content"
+      >
+        <span
+          class="mat-mdc-list-item-unscoped-content mdc-list-item__primary-text"
+        >
+           Team 
+          <span>
+            <mat-icon
+              aria-hidden="true"
+              class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color"
+              data-mat-icon-type="font"
+              role="img"
+            >
+              expand_more
+            </mat-icon>
+            
+            
+          </span>
+        </span>
+      </span>
+      <div
+        class="mat-mdc-focus-indicator"
+      />
+    </mat-list-item>
+    
+    <div
+      hidden=""
+    >
+      <mat-nav-list
+        aria-disabled="false"
+        class="mat-mdc-nav-list mat-mdc-list-base mdc-list subList"
+        role="navigation"
+      >
+        <mat-list-item
+          aria-disabled="false"
+          class="mat-mdc-list-item mdc-list-item mat-mdc-list-item-interactive _mat-animation-noopable mat-mdc-list-item-single-line mdc-list-item--with-one-line"
+          tabindex="0"
+        >
+          <span
+            class="mdc-list-item__content"
+          >
+            <span
+              class="mat-mdc-list-item-unscoped-content mdc-list-item__primary-text"
+            >
+              Daily Status Review
+            </span>
+          </span>
+          <div
+            class="mat-mdc-focus-indicator"
+          />
+        </mat-list-item>
+        
+        <mat-list-item
+          aria-disabled="false"
+          class="mat-mdc-list-item mdc-list-item mat-mdc-list-item-interactive _mat-animation-noopable mat-mdc-list-item-single-line mdc-list-item--with-one-line"
+          tabindex="0"
+        >
+          <span
+            class="mdc-list-item__content"
+          >
+            <span
+              class="mat-mdc-list-item-unscoped-content mdc-list-item__primary-text"
+            >
+              Staff Development
+            </span>
+          </span>
+          <div
+            class="mat-mdc-focus-indicator"
+          />
+        </mat-list-item>
+        
+        <mat-list-item
+          aria-disabled="false"
+          class="mat-mdc-list-item mdc-list-item mat-mdc-list-item-interactive _mat-animation-noopable mat-mdc-list-item-single-line mdc-list-item--with-one-line"
+          tabindex="0"
+        >
+          <span
+            class="mdc-list-item__content"
+          >
+            <span
+              class="mat-mdc-list-item-unscoped-content mdc-list-item__primary-text"
+            >
+              Team PTO
+            </span>
+          </span>
+          <div
+            class="mat-mdc-focus-indicator"
+          />
+        </mat-list-item>
+        
+      </mat-nav-list>
+    </div>
+    <mat-list-item
+      aria-disabled="false"
+      class="mat-mdc-list-item mdc-list-item mat-mdc-list-item-interactive _mat-animation-noopable mat-mdc-list-item-single-line mdc-list-item--with-one-line"
+    >
+      <span
+        class="mdc-list-item__content"
+      >
+        <span
+          class="mat-mdc-list-item-unscoped-content mdc-list-item__primary-text"
+        >
+           Admin 
+          <span>
+            <mat-icon
+              aria-hidden="true"
+              class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color"
+              data-mat-icon-type="font"
+              role="img"
+            >
+              expand_more
+            </mat-icon>
+            
+            
+          </span>
+        </span>
+      </span>
+      <div
+        class="mat-mdc-focus-indicator"
+      />
+    </mat-list-item>
+    
+    <div
+      hidden=""
+    >
+      <mat-nav-list
+        aria-disabled="false"
+        class="mat-mdc-nav-list mat-mdc-list-base mdc-list subList"
+        role="navigation"
+      >
+        <mat-list-item
+          aria-disabled="false"
+          class="mat-mdc-list-item mdc-list-item mat-mdc-list-item-interactive _mat-animation-noopable mat-mdc-list-item-single-line mdc-list-item--with-one-line"
+          tabindex="0"
+        >
+          <span
+            class="mdc-list-item__content"
+          >
+            <span
+              class="mat-mdc-list-item-unscoped-content mdc-list-item__primary-text"
+            >
+              Daily Status Review
+            </span>
+          </span>
+          <div
+            class="mat-mdc-focus-indicator"
+          />
+        </mat-list-item>
+        
+        <mat-list-item
+          aria-disabled="false"
+          class="mat-mdc-list-item mdc-list-item mat-mdc-list-item-interactive _mat-animation-noopable mat-mdc-list-item-single-line mdc-list-item--with-one-line"
+          tabindex="0"
+        >
+          <span
+            class="mdc-list-item__content"
+          >
+            <span
+              class="mat-mdc-list-item-unscoped-content mdc-list-item__primary-text"
+            >
+              Admin Staff Development
+            </span>
+          </span>
+          <div
+            class="mat-mdc-focus-indicator"
+          />
+        </mat-list-item>
+        
+        <mat-list-item
+          aria-disabled="false"
+          class="mat-mdc-list-item mdc-list-item mat-mdc-list-item-interactive _mat-animation-noopable mat-mdc-list-item-single-line mdc-list-item--with-one-line"
+          tabindex="0"
+        >
+          <span
+            class="mdc-list-item__content"
+          >
+            <span
+              class="mat-mdc-list-item-unscoped-content mdc-list-item__primary-text"
+            >
+              Employee Management
+            </span>
+          </span>
+          <div
+            class="mat-mdc-focus-indicator"
+          />
+        </mat-list-item>
+        
+        <mat-list-item
+          aria-disabled="false"
+          class="mat-mdc-list-item mdc-list-item mat-mdc-list-item-interactive _mat-animation-noopable mat-mdc-list-item-single-line mdc-list-item--with-one-line"
+          tabindex="0"
+        >
+          <span
+            class="mdc-list-item__content"
+          >
+            <span
+              class="mat-mdc-list-item-unscoped-content mdc-list-item__primary-text"
+            >
+              Executive Summary
+            </span>
+          </span>
+          <div
+            class="mat-mdc-focus-indicator"
+          />
+        </mat-list-item>
+        
+        <mat-list-item
+          aria-disabled="false"
+          class="mat-mdc-list-item mdc-list-item mat-mdc-list-item-interactive _mat-animation-noopable mat-mdc-list-item-single-line mdc-list-item--with-one-line"
+          tabindex="0"
+        >
+          <span
+            class="mdc-list-item__content"
+          >
+            <span
+              class="mat-mdc-list-item-unscoped-content mdc-list-item__primary-text"
+            >
+              Edit Alerts
+            </span>
+          </span>
+          <div
+            class="mat-mdc-focus-indicator"
+          />
+        </mat-list-item>
+        
+      </mat-nav-list>
+    </div>
+    
+    <div
+      hidden=""
+    >
+      <mat-nav-list
+        aria-disabled="false"
+        class="mat-mdc-nav-list mat-mdc-list-base mdc-list subList"
+        role="navigation"
+      >
+        
+        
+      </mat-nav-list>
+    </div>
+  </mat-nav-list>
+</div>
+`;

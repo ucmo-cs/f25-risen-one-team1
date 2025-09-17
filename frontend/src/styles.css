@@ -1,0 +1,91 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  all: unset;
+    background-image: linear-gradient(
+      to right bottom,
+      hsla(48, 100%, 49%, 0.8),
+      hsla(34, 100%, 46%, 0.8)
+    );
+}
+
+p {
+  all: unset;
+}
+
+.montserrat {
+  font-family: "Montserrat", sans-serif;
+}
+
+/* ====================== *
+* =        FORMS        = *
+* ======================= */
+
+.form-section {
+  background-color: white;
+  border-radius: 10px;
+  padding: 25px 35px 20px 35px;
+  align-content: center;
+  margin: auto;
+}
+
+.form-control {
+  height: calc(0.5rem + 2px);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.cal-days, .cal-cell-row {
+  border: none !important;
+}
+
+.cal-day-cell {
+  min-height: 30px !important;
+  /* height: 50px !important; */
+  border: none !important;
+}
+
+.cal-today {
+  background-color: transparent !important;
+}
+
+.cal-header {
+  height: 50px;
+  color: #ffb366;
+}
+
+.disabled:hover {
+  background-color: white !important;
+}
+
+.cal-header .cal-cell:hover {
+  background-color: white !important;
+}
+
+.cal-today:hover {
+  cursor: pointer;
+  background-color: #fafafa !important;
+}
+
+* {
+  font-family: "Montserrat", sans-serif;
+  --mdc-list-list-item-label-text-font: "Montserrat", sans-serif;
+}
+
+.mat-mdc-card-content.mat-mdc-card-content {
+  padding:0;
+}
+
+tr.expanded {
+  height: 48px !important;
+  overflow-y: scroll !important;
+}
+
+.mat-sort-header-container {
+  justify-content: center;
+}
