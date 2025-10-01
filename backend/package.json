@@ -1,6 +1,9 @@
 {
   "devDependencies": {
-    "serverless-s3-sync": "^3.3.0",
-    "serverless-offline": "^13.8.0"
+    "serverless-offline": "^13.8.0",
+    "serverless-s3-sync": "^3.3.0"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1692.0"
   }
 }
