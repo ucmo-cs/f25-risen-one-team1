@@ -5,9 +5,22 @@ provider:
   name: aws
   runtime: nodejs20.x
   region: us-east-1
-
-plugins:
-  - serverless-offline
+  environment:
+    USERS_TABLE: users
+    PROJECTS_TABLE: projects
+    TIMESHEET_TABLE: timesheet
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+          Resource:
+            - !GetAtt UsersTable.Arn
+            
+# plugins:
+#   - serverless-offline
 
 resources:
   Resources:
@@ -23,6 +36,36 @@ resources:
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
 
+# Project Table for storing Projects and who is in each project
+    ProjectsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: projects
+        AttributeDefinitions:
+          - AttributeName: project_name
+            AttributeType: S
+        KeySchema:
+          - AttributeName: project_name
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+    
+
+    TimesheetTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: timesheet
+        AttributeDefinitions:
+          - AttributeName: project_name
+            AttributeType: S
+          - AttributeName: timeframe
+            AttributeType: S
+        KeySchema:
+          - AttributeName: project_name
+            KeyType: HASH
+          - AttributeName: timeframe
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
+
 functions:
   login:
     handler: src/handlers/login.handler
@@ -31,6 +74,12 @@ functions:
           path: login
           method: post
           cors: true
-
+  createUser:
+    handler: src/handlers/create_user.handler
+    events:
+      - http:
+          path: newUser
+          method: post
+          cors: true
   
 
