@@ -1,3 +1,63 @@
 <!DOCTYPE html>
 <html lang="en" class="body">
+<div class="container">
+  <!-- Page Title -->
+  <div class="box-1">
+    <h1 class="h1">Monthly Time Sheet</h1>
+  </div>
+
+
+  <!-- Card Top: Project / Month + Actions -->
+  <div class="box-2">
+    <div class="box-2-inside" style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;">
+      <!-- Left: selectors -->
+      <div style="display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
+        <div class="selectorBox">
+          <p style="margin:0 0 6px 0;">Project Name</p>
+          <!--Will eventually replace with components-->
+          <select style="min-width:220px;height:36px;border:1px solid #ccc;border-radius:4px;padding:4px 8px;">
+            <option selected>(Project)</option>
+          </select>
+        </div>
+
+        <div class="selectorBox">
+          <p style="margin:0 0 6px 0;">Select Month</p>
+          <!--Will eventually replace with components-->
+          <select style="min-width:220px;height:36px;border:1px solid #ccc;border-radius:4px;padding:4px 8px;">
+            <option selected>Sample</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Right: actions -->
+      <div style="display:flex;align-items:center;gap:12px;margin-left:auto;">
+        <!--Will eventually replace with components-->
+        <button class="button-exportToPDF">Export to PDF</button>
+        <button class="button-save" style="background:#FBC900;border:none;">Edit</button>
+        <button class="button-save" style="background:#FBC900;border:none;">Save</button>
+      </div>
+    </div>
+    <h2 style="font-weight:700;margin:15px 0 0 0;">(MonthYear)</h2>
+  </div>
+
+  <!-- Month Heading -->
+  <div class="box-3" style="border-top:none;padding-top:10px;">
+    <div style="padding: 10px 15px 0 15px;">
+
+
+      <!-- Signature Lines -->
+      <div style="display:flex;gap:60px;justify-content:flex-start;margin-top:40px;">
+        <div style="min-width:280px;">
+          <div style="border-bottom:1px solid #ccc;height:28px;"></div>
+          <p style="margin-top:6px;">Manager Signature</p>
+        </div>
+        <div style="min-width:180px;">
+          <div style="border-bottom:1px solid #ccc;height:28px;"></div>
+          <p style="margin-top:6px;">Date</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 </html>

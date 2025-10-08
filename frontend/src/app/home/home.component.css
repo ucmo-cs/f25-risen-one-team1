@@ -15,28 +15,31 @@ body {
     flex-direction: column;
     align-items: center;
     background-color: white;
+
     margin-left: 10%;
     margin-right: 10%;
-    border-radius: 50px;  
+    border-radius: 50px;
   }
 .box-1{
-    text-align: left; 
-    display:flex; 
-    flex-direction: column; 
+    text-align: left;
+    display:flex;
+    flex-direction: column;
     align-items: center;
     width: 80%;
     margin: 0 auto;
+    padding-top: 10px;
+    margin-top: 50px;
     border: 2px solid grey;
 }
 .box-2{
     width: 80%;
     margin: 0 auto;
+    padding: 15px;
     border: 2px solid grey;
     border-top: 0px;
 }
 .box-2-inside {
-    margin-left: 15px;
-    margin-top: 15px;
+    margin: auto;
 }
 .box-3 {
     width: 80%;
@@ -65,19 +68,19 @@ h1 {
     padding-top: 30px;
 }
 .shortTextAreaBox {
-    width: 400px; 
+    width: 400px;
     padding: 10px;
     margin-right: 100px;
     padding-left: 65px;
 }
 .shortBasicInput {
-    width: 375px; 
+    width: 375px;
     padding: 10px;
     margin-right: 125px;
     padding-left: 65px;
 }
 .shortBasicInput-cost {
-    width: 390px; 
+    width: 390px;
     padding: 10px;
 }
 .employeeName{
@@ -90,16 +93,19 @@ h1 {
     width: 385px;
 }
 .datePicker {
-    width: 390px; 
+    width: 390px;
     padding: 10px;
 }
 .datePickerSignatures{
-    width: 275px; 
+    width: 275px;
     padding: 30px;
     margin-left: 15px;
 }
 .selectorBox {
-    padding-left: 65px;
+    /*padding-left: 65px;*/
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 mat-form-field {
     overflow: visible;
@@ -117,18 +123,49 @@ mat-form-field {
   }
 
 .button-exportToPDF {
-    border: 2px solid #FBC900;
-    padding: 15px 32px;
-    font-size: 16px;
-    border-radius: 50px;
-    border-radius: 50px;
-    margin-left: 67%;    
+  background-color: transparent;
+  color: #FBC900;
+  border: 2px solid #FBC900;
+  padding: 10px 24px;
+  font-size: 16px;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
-.button-save {
-    padding: 15px 32px;
-    font-size: 16px;
-    border-radius: 50px;
-    margin-left: 1%;
+
+.button-exportToPDF:hover {
+  background-color: #FBC900;
+  color: white;
+  border-color: #FBC900;
+  box-shadow: 0 0 8px rgba(251, 201, 0, 0.4);
+}
+ .button-save {
+  background-color: #FBC900;
+  color: white;
+  font-weight: 700;
+  padding: 12px 28px;
+  font-size: 16px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 4px 10px rgba(251, 201, 0, 0.4);
+}
+
+.button-save:hover {
+  background-color: #ffd633;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(251, 201, 0, 0.6);
+}
+
+.button-save:active {
+  transform: scale(0.96);
+  box-shadow: 0 2px 5px rgba(251, 201, 0, 0.4);
+}
+
+.button-save span {
+  transition: opacity 0.2s ease-in;
 }
 
 mat-checkbox {
@@ -165,7 +202,7 @@ text-area {
 
 
 }
-  
+
   span {
     background: black;
     color: white;
