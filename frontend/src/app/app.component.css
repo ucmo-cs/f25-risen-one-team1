@@ -9,8 +9,8 @@
 }
 
 app-sidenav {
-    width: 10vw;
-    min-width: 120px
+    /*width: 10vw;*/
+    /*min-width: 120px*/
 }
 
 @media screen and (max-width: 575px) {
