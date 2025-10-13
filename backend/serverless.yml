@@ -18,6 +18,18 @@ provider:
             - dynamodb:PutItem
           Resource:
             - !GetAtt UsersTable.Arn
+  httpApi:
+    cors:
+      allowedOrigins:
+        - http://localhost:4200
+      allowedHeaders:
+        - Content-Type
+        - Authorization
+      allowedMethods:
+        - GET
+        - POST
+        - OPTIONS
+      allowCredentials: false        
             
 # plugins:
 #   - serverless-offline
@@ -70,10 +82,9 @@ functions:
   login:
     handler: src/handlers/login.handler
     events:
-      - http:
-          path: login
+      - httpApi:
+          path: /login
           method: post
-          cors: true
   createUser:
     handler: src/handlers/create_user.handler
     events:

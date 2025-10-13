@@ -64,7 +64,7 @@ interface previousRequest {
   template: `
   <input type="text" [(ngModel)]="username" placeholder="Username">
   <input type="password" [(ngModel)]="password" placeholder="Password">
-  <button (click)="login()">Login</button>
+  <button>Login</button>
 `
 })
 export class LoginComponent {
@@ -72,6 +72,13 @@ export class LoginComponent {
   password: string = ''; // Initialize with an empty string
 
   constructor(private authService: AuthService, private router: Router) { }
+  
+
+  onSubmit(event:Event){
+    event.preventDefault()
+    this.login();
+  }
+
 
   login() {
     this.authService.login(this.username, this.password)

@@ -38,7 +38,7 @@
                                 <span>Risen One Consulting <span id="yellow">|</span> Employee Portal</span>
                             </h1>
                             <h2>Login</h2>
-                            <form class="login-form" ngNoForm>
+                            <form class="login-form" (submit)="onSubmit($event)" ngNoForm>
                                 <div class="form-group">
                                     <label for="username">Username:</label>
                                     <mat-form-field appearance="fill" class="form-field">
@@ -51,8 +51,9 @@
                                         <input matInput id="password" name="password" type="password" required [(ngModel)]="password">
                                     </mat-form-field>
                                 </div>
-                                <button mat-raised-button color="primary" class="login-button" (click)="login()">Login</button>
+                                <button mat-raised-button color="primary" class="login-button">Login</button>
                             </form>
+                            
                         </mat-card-content>
                     </mat-card>
                 </div>

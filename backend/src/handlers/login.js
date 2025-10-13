@@ -22,16 +22,14 @@ module.exports.handler = async (event) => {
         body: JSON.stringify({ message: 'Invalid username or password' })
       };
     }
-
     return {
       statusCode: 200,
       body: JSON.stringify({ message: 'Login successful' })
     };
   } catch (error) {
-    console.error('Error:', error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ message: 'Internal server error' })
+      body: JSON.stringify({ message: 'Internal server error', error:error })
     };
   }
 };
