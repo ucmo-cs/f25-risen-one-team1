@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   url: string = "https://66w84tfuvb.execute-api.us-east-1.amazonaws.com/"
-  // url: string = "http://localhost:3000/dev/"
+  // url: string = "http://localhost:3000/"
   constructor(private http: HttpClient,private router: Router) { }
 
   login(username: string, password: string): Observable<boolean> {
@@ -31,6 +31,16 @@ export class AuthService {
           }
         },
         error: (error) => {
+
+        //   console.error('Login HTTP error:', {
+        //   url: error?.url,
+        //   status: error?.status,
+        //   statusText: error?.statusText,
+        //   headers: error?.headers,
+        //   errorBody: error?.error // this is the Lambda JSON if any
+        // });
+
+
           if (error.status == 401){
             observer.next(false)
             observer.complete()

@@ -15,13 +15,13 @@ module.exports.handler = async (event) => {
     }
 
     const timestamp = new Date().toISOString();
-
+    const projectId = requestBody.projectId || "";
 
     const params = {
         TableName: process.env.PROJECTS_TABLE,
         Item: {
-            projectId: '',
-            name: requestBody.name,
+            projectId: projectId,
+            project_name: requestBody.name,
             description: requestBody.description || '',
             createdAt: timestamp,
             members: []

@@ -29,7 +29,7 @@ module.exports.handler = async (event) => {
   } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ message: 'Internal server error', error:error })
+      body: JSON.stringify({ message: 'Internal server error',error: String(error?.message || error)})
     };
   }
 };

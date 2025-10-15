@@ -75,7 +75,8 @@ export class LoginComponent {
   
 
   onSubmit(event:Event){
-    event.preventDefault()
+    event.preventDefault();
+    console.log("Before Login");
     this.login();
   }
 

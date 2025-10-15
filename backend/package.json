@@ -1,6 +1,7 @@
 {
   "devDependencies": {
-    "serverless-offline": "^13.8.0",
+    "serverless": "^3.40.0",
+    "serverless-offline": "^13.9.0",
     "serverless-s3-sync": "^3.3.0"
   },
   "dependencies": {

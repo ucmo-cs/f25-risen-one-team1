@@ -16,8 +16,11 @@ provider:
           Action:
             - dynamodb:GetItem
             - dynamodb:PutItem
+            - dynamodb:Scan
           Resource:
             - !GetAtt UsersTable.Arn
+            - !GetAtt ProjectsTable.Arn
+
   httpApi:
     cors:
       allowedOrigins:
@@ -31,8 +34,8 @@ provider:
         - OPTIONS
       allowCredentials: false        
             
-# plugins:
-#   - serverless-offline
+plugins:
+  - serverless-offline
 
 resources:
   Resources:
@@ -88,9 +91,20 @@ functions:
   createUser:
     handler: src/handlers/create_user.handler
     events:
-      - http:
-          path: newUser
+      - httpApi:
+          path: /newUser
           method: post
-          cors: true
+  createProject:
+    handler: src/handlers/create_project.handler
+    events:
+      - httpApi:
+          path: /newProject
+          method: post
+  getProjects:
+    handler: src/handlers/get_projects.handler
+    events:
+      - httpApi:
+          path: /projects
+          method: get
   
 
