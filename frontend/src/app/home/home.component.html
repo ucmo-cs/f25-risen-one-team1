@@ -20,15 +20,14 @@
           </select>
         </div>
 
+        <!-- Month Selector -->
+
         <div class="selectorBox">
           <p style="margin:0 0 6px 0;">Select Month</p>
-          <!--Will eventually replace with components-->
-          <select style="min-width:220px;height:36px;border:1px solid #ccc;border-radius:4px;padding:4px 8px;">
-            <option selected>Sample</option>
-          </select>
+          <!-- Angular two-way binding for selected month -->
+          <input type="month" [(ngModel)]="selectedMonthValue" (change) = "onMonthChange()">
         </div>
       </div>
-
       <!-- Right: actions -->
       <div style="display:flex;align-items:center;gap:12px;margin-left:auto;">
         <!--Will eventually replace with components-->
@@ -37,7 +36,49 @@
         <button class="button-save" style="background:#FBC900;border:none;">Save</button>
       </div>
     </div>
-    <h2 style="font-weight:700;margin:15px 0 0 0;">(MonthYear)</h2>
+
+    <!-- Selected Month Display-->
+    <h2>{{selectedMonth}}</h2>
+  </div>
+
+  <!-- Time Sheet Table Selection -->
+
+  <div class="box-2">
+    <div class="table-container">
+      <table class="timesheet-table">
+
+        <!-- table Header -->
+        <thead>
+        <tr>
+          <th>Employee</th>
+          <!-- Generate Days based on selected Month-->
+          <th *ngFor="let day of daysInMonth">{{ day }}</th>
+          <th>Total</th>
+        </tr>
+        </thead>
+
+        <!-- Table Body-->
+        <tbody>
+        <tr>
+          <td><!-- Employee name here --></td>
+          <td *ngFor="let day of daysInMonth"></td>
+          <td>
+
+          </td><!-- placeholder for hours-->
+        </tr>
+        <tr>
+          <td><!-- Employee name here --></td>
+          <td *ngFor="let day of daysInMonth"></td>
+          <td></td><!-- placeholder for hours-->
+        </tr>
+        <tr>
+          <td>
+
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <!-- Month Heading -->
