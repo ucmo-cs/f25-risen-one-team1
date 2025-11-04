@@ -16,7 +16,7 @@ module.exports.handler = async () => {
 
     try {
         const data = await DynamoDB.scan(params).promise();
-        console.log(data)
+        // console.log(data)
         
         if (data.Count == 0){
             console.log("No items")
@@ -26,10 +26,16 @@ module.exports.handler = async () => {
                 body: JSON.stringify({message: 'No Projects Found'})
             }
         }
+        const gottenProjects = data.Items
+        let projects = []
+
+
+        gottenProjects.map(project => (
+            projects.push(project?.project_name)
+        ))
         return{
-        
             statusCode: 200,
-            body: JSON.stringify({projects:data.Items})
+            body: JSON.stringify({projects})
         }
     
     }catch(error){

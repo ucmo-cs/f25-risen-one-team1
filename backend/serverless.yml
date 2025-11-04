@@ -20,6 +20,7 @@ provider:
           Resource:
             - !GetAtt UsersTable.Arn
             - !GetAtt ProjectsTable.Arn
+            - !GetAtt TimesheetTable.Arn
 
   httpApi:
     cors:
@@ -106,5 +107,11 @@ functions:
       - httpApi:
           path: /projects
           method: get
+  getTimesheet:
+    handler: src/handlers/get_timesheet.handler
+    events:
+      - httpApi:
+          path: /getTimesheet
+          method: post
   
 
