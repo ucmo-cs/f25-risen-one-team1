@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {provideNativeDateAdapter} from '@angular/material/core';
-
+import { ProjectService, Project } from '../services/project.service';
 
 
 interface previousRequest {
@@ -27,10 +27,32 @@ export class HomeComponent implements OnInit {
   //holds days of selected month
   daysInMonth: number[] = [];
 
-  constructor (private router: Router ) {}
+    selectedProject = '';
+    projects: Project[] = [];
+    private fallbackProjects: Project[] = [
+      { id: '', name: '(Project)' } // default placeholder
+    ];
+
+  constructor (private router: Router, private projectService: ProjectService ) {}
 
   /* Sign In navigation Function */
   ngOnInit(){
+      this.projects = this.fallbackProjects;
+
+    this.projectService.getProjects().subscribe({
+      next: (data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          this.projects = data;
+        } else {
+          this.projects = this.fallbackProjects;
+        }
+      },
+      error: (err) => {
+        console.error('Failed to load projects in HomeComponent', err);
+        this.projects = this.fallbackProjects;
+      }
+    });
+
     //get current date
       const now = new Date();
       const month = String(now.getMonth() + 1).padStart(2, '0');
@@ -42,6 +64,11 @@ export class HomeComponent implements OnInit {
 
       this.generateDays(year, Number(month));
       }
+
+        onProjectChange(): void {
+          console.log('Selected project:', this.selectedProject);
+        }
+
   signIn() {
     this.router.navigate(['/login']);
   }

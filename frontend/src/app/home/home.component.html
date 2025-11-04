@@ -14,9 +14,10 @@
       <div style="display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
         <div class="selectorBox">
           <p style="margin:0 0 6px 0;">Project Name</p>
-          <!--Will eventually replace with components-->
-          <select style="min-width:220px;height:36px;border:1px solid #ccc;border-radius:4px;padding:4px 8px;">
-            <option selected>(Project)</option>
+          <select [(ngModel)]="selectedProject"
+                  (change)="onProjectChange()"
+                  style="min-width:220px;height:36px;border:1px solid #ccc;border-radius:4px;padding:4px 8px;">
+            <option *ngFor="let p of projects" [value]="p.id">{{ p.name }}</option>
           </select>
         </div>
 
