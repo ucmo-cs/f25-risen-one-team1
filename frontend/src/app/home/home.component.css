@@ -17,8 +17,7 @@ body {
     background-color: white;
 
     width: 100%;
-    max-width: 1200px; /* prevents overexpansion on large screens */
-  /* perfectly centers horizontally */
+    max-width: 1200px;
     border-radius: 50px;
     box-sizing: border-box;
     position: relative;
@@ -48,12 +47,22 @@ body {
 }
 .box-3 {
     width: 100%;
+    padding: 20px;
+    background: #fff;
+    margin: 0 auto;
+    border: 2px solid grey;
+    border-top: none;
+    overflow: hidden;
+}
+.box-4 {
+    width: 100%;
     margin: 0 auto;
     border: 2px solid grey;
     border-top: none;
     padding-bottom: 10px;
     margin-bottom: 50px;
 }
+
 .certificateDropdown mat-form-field {
     width: 30%;
 }
@@ -67,6 +76,11 @@ h1 {
     text-align: center;
     font-size: 35px;
 }
+
+.h2-month {
+    padding-top: 10px;
+}
+
 .longTextAreaBox {
     width: 910px;
     padding-left: 63px;
@@ -219,111 +233,128 @@ text-area {
   justify-content: center;
   }
 
+
+
  /* Timesheet Table Container*/
-
-  .table-container {
-   background-color: #fff;
-   border-radius: 0;
-   box-shadow: none;
-   padding: 20px;
-   overflow-x: auto;
+ .table-container {
+   position: relative;
    max-width: 100%;
-   box-sizing: border-box;
-   border: none;
+   max-height: 420px;
+   overflow: auto;
+   border-radius: 8px;
+   background: #fff;
+   -webkit-overflow-scrolling: touch;
+   background-clip: padding-box; /* ensures scroll content doesn't bleed */
 
-  }
+ }
 
-/*Timesheet Table*/
+ .table-container::after {
+   content: "";
+   position: absolute;
+   inset: 0;
+   border-radius: 8px;
+   pointer-events: none;
+ }
 
+ /* Timesheet Table */
   .timesheet-table {
+    border-collapse: collapse;
     width: max-content;
     min-width: 100%;
     white-space: nowrap;
+    table-layout: fixed;
+    box-sizing: border-box;
   }
 
-  /*Table Headers*/
-
+ /* Table Headers */
  .timesheet-table th {
    background-color: #000;
    color: #fff;
    text-align: center;
    font-weight: 600;
-   padding: 14px 8px
+   padding: 14px 8px;
    white-space: nowrap;
    height: 50px;
+   position: sticky;
+   top: 0;
+   z-index: 2;
+   border: 1px solid #fff;
+   box-sizing: border-box;
  }
 
-/*Table Cells*/
+ /* Table Cells */
  .timesheet-table td {
- padding: 14px 8px;
-  text-align: center;
-  height: 50px;
+   padding: 14px 8px;
+   text-align: center;
+   height: 50px;
+   border: 1px solid #e0e0e0;
+   box-sizing: border-box;
+ }
+
+ /* Employees Column */
+ .timesheet-table td:first-child,
+ .timesheet-table th:first-child {
+   background-color: #f9f9f9;
+   font-weight: 600;
+   text-align: left;
+   padding-left: 10px;
+   min-width: 120px;
+   position: sticky;
+   left: 0;
+   z-index: 3;
+   box-shadow: 2px 0 0 rgba(0, 0, 0, 0.05);
  }
 
 
+ /* Scrollbar Styling for Table */
+ .table-container::-webkit-scrollbar {
+   height: 8px;
+ }
+ .table-container::-webkit-scrollbar-thumb {
+   background: #bbb;
+   border-radius: 10px;
+ }
+ .table-container::-webkit-scrollbar-thumb:hover {
+   background: #888;
+ }
 
-/* Employees Column*/
+ /* Row and Hover Effects */
+ .timesheet-table tbody tr:nth-child(even) {
+   background-color: #fafafa;
+ }
+ .timesheet-table tbody tr:hover {
+   background-color: #f1f1f1;
+ }
 
+ /* Totals Row */
+ .timesheet-table tfoot td {
+   font-weight: bold;
+   border-top: 2px solid #000;
+ }
 
-.timesheet-table td:first-child {
-  background-color: #f9f9f9;
-  font-weight: 600;
-  text-align: left;
-  padding-left: 10px;
-  min-width: 120px;
-}
+ /* Placeholder text when no data is available */
+ .placeholder {
+   text-align: center;
+   padding: 20px;
+   font-style: italic;
+   color: #777;
+   background-color: #fafafa;
+ }
 
-/* Scrollbar Styling for Table*/
+ /* Rounded corners for top of table */
+ .timesheet-table th:first-child {
+   border-top-left-radius: 8px;
+ }
+ .timesheet-table th:last-child {
+   border-top-right-radius: 8px;
+ }
 
-.table-container::-webkit-scrollbar {
-  height: 8px;
-}
-.table-container::-webkit-scrollbar-thumb {
-  background: #bbb;
-  border-radius: 10px;
-}
-.table-container::-webkit-scrollbar-thumb:hover {
-  background: #888;
-}
-
-/* Row and Hover Effects*/
-
-.timesheet-table tbody td {
-  border: 1px solid #e0e0e0;
-  padding: 8px 6px;
-  color: #333;
-}
-
-.timesheet-table tbody tr:nth-child(even) {
-  background-color: #fafafa;
-}
-
-.timesheet-table tbody tr:hover {
-  background-color: #f1f1f1;
-}
-
-/* Totals Row*/
-
-.timesheet-table tfoot td {
-  font-weight: bold;
-  border-top: 2px solid #000;
-}
-
-/*Placeholder text when no data is available*/
-
-.placeholder {
-  text-align: center;
-  padding: 20px;
-  font-style: italic;
-  color: #777;
-  background-color: #fafafa;
-}
-
-/*Rounded corners for top of table*/
-
-.timesheet-table th:first-child {
-  border-top-left-radius: 8px;
-}
-.timesheet-table th:last-child {
-  border-top-right-radius: 8px;
+.timesheet-table th:not(:first-child):not(:last-child),
+.timesheet-table td:not(:first-child):not(:last-child) {
+  width: 56px;
+  min-width: 56px;
+  max-width: 56px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
