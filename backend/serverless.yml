@@ -113,5 +113,11 @@ functions:
       - httpApi:
           path: /getTimesheet
           method: post
+  saveTimesheet:
+    handler: src/handlers/save_timesheet.handler
+    events:
+      - httpApi:
+          path: /saveTimesheet
+          method: post
   
 
