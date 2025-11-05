@@ -1,146 +1,90 @@
-
 html {
-    background-color: #FBC900;
+  background-color: #FBC900;
 }
+
 body {
-    padding-top: 50px;
-    padding-bottom: 50px;
-    background-color: #FBC900;
-    height: fit-content;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background-color: #FBC900;
+  height: fit-content;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: white;
-
-    width: 100%;
-    max-width: 1200px;
-    border-radius: 50px;
-    box-sizing: border-box;
-    position: relative;
-    margin: 20px auto;
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  width: 100%;
+  max-width: 1200px;
+  border-radius: 50px;
+  box-sizing: border-box;
+  position: relative;
+  margin: 20px auto;
 }
-.box-1{
-    text-align: left;
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    margin: 0 auto;
-    padding-top: 10px;
-    margin-top: 50px;
-    border: 2px solid grey;
-  }
-.box-2{
-    width: 100%;
-    margin: 0 auto;
-    padding: 15px;
-    border: 2px solid grey;
-    border-top: 0px;
+
+/* ==== Layout Boxes ==== */
+.box-1 {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 10px;
+  margin-top: 50px;
+  border: 2px solid grey;
 }
+
+.box-2 {
+  width: 100%;
+  margin: 0 auto;
+  padding: 15px;
+  border: 2px solid grey;
+  border-top: 0px;
+}
+
 .box-2-inside {
-    margin: auto;
-}
-.box-3 {
-    width: 100%;
-    padding: 20px;
-    background: #fff;
-    margin: 0 auto;
-    border: 2px solid grey;
-    border-top: none;
-    overflow: hidden;
-}
-.box-4 {
-    width: 100%;
-    margin: 0 auto;
-    border: 2px solid grey;
-    border-top: none;
-    padding-bottom: 10px;
-    margin-bottom: 50px;
+  margin: auto;
 }
 
-.certificateDropdown mat-form-field {
-    width: 30%;
+.box-3 {
+  width: 100%;
+  padding: 20px;
+  background: #fff;
+  margin: 0 auto;
+  border: 2px solid grey;
+  border-top: none;
+  overflow: hidden;
 }
+
+.box-4 {
+  width: 100%;
+  margin: 0 auto;
+  border: 2px solid grey;
+  border-top: none;
+  padding-bottom: 10px;
+  margin-bottom: 50px;
+}
+
+/* ==== Text Elements ==== */
 p {
-    text-align: left;
-    font-family: 'Montserrat';
-    margin-left: center;
+  text-align: left;
+  font-family: 'Montserrat';
 }
+
 h1 {
-    font-weight: bold;
-    text-align: center;
-    font-size: 35px;
+  font-weight: bold;
+  text-align: center;
+  font-size: 35px;
 }
 
 .h2-month {
-    padding-top: 10px;
+  padding-top: 10px;
 }
 
-.longTextAreaBox {
-    width: 910px;
-    padding-left: 63px;
-    padding-top: 30px;
-}
-.shortTextAreaBox {
-    width: 400px;
-    padding: 10px;
-    margin-right: 100px;
-    padding-left: 65px;
-}
-.shortBasicInput {
-    width: 375px;
-    padding: 10px;
-    margin-right: 125px;
-    padding-left: 65px;
-}
-.shortBasicInput-cost {
-    width: 390px;
-    padding: 10px;
-}
-.employeeName{
-    margin-right: 15px;
-    width: 300px;
-    padding-left: 65px;
-}
-.certName{
-    padding: 10px;
-    width: 385px;
-}
-.datePicker {
-    width: 390px;
-    padding: 10px;
-}
-.datePickerSignatures{
-    width: 275px;
-    padding: 30px;
-    margin-left: 15px;
-}
-.selectorBox {
-    /*padding-left: 65px;*/
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-mat-form-field {
-    overflow: visible;
-    padding-right: 200px;
-}
-
-.button-addNew {
-    border: none;
-    color: #000;
-    background-color: #FBC900;
-    padding: 15px 32px;
-    font-size: 16px;
-    margin-left: 20%;
-    border-radius: 50px;
-  }
-
+/* ==== Buttons ==== */
 .button-exportToPDF {
   background-color: transparent;
   color: #FBC900;
@@ -159,7 +103,8 @@ mat-form-field {
   border-color: #FBC900;
   box-shadow: 0 0 8px rgba(251, 201, 0, 0.4);
 }
- .button-save {
+
+.button-save {
   background-color: #FBC900;
   color: white;
   font-weight: 700;
@@ -183,172 +128,95 @@ mat-form-field {
   box-shadow: 0 2px 5px rgba(251, 201, 0, 0.4);
 }
 
-.button-save span {
-  transition: opacity 0.2s ease-in;
+/* ==== Table Container ==== */
+.table-container {
+  position: relative;
+  max-width: 100%;
+  max-height: 420px;
+  overflow: auto;
+  border-radius: 8px;
+  background: #fff;
+  -webkit-overflow-scrolling: touch;
+  background-clip: padding-box;
 }
 
-mat-checkbox {
-    text-align: left;
-    padding-left: 65px;
-}
-text-area {
-    width: 50%;
-}
-.spacer{
-    flex: 1 1 auto;
-}
-.toolbar {
-    display: flex;
-    justify-content: space-between;
-    margin: 0;
-    background: black;
-    font-size: 30px;
-    height: 10%;
-    padding-right: 100px;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-  .menuIcon {
-    font-size: 50px;
-    padding-bottom: 30px;
-    padding-right: 25px;
-
-}
-.accountIcon{
-    font-size: 70px;
-    padding-bottom: 40px;
-    padding-right: 100px;
-
-
+.table-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  pointer-events: none;
 }
 
-  span {
-    background: black;
-    color: white;
-  }
+/* ==== Table ==== */
+.timesheet-table {
+  border-collapse: collapse;
+  width: max-content;
+  min-width: 100%;
+  white-space: nowrap;
+  table-layout: fixed;
+  box-sizing: border-box;
+}
 
- .page-wrapper{
-  width:100%
-  display: flex;
-  justify-content: center;
-  }
+/* ==== Table Headers ==== */
+.timesheet-table th {
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  font-weight: 600;
+  padding: 14px 8px;
+  white-space: nowrap;
+  height: 50px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  border: 1px solid #fff;
+  box-sizing: border-box;
+}
 
+/* ==== Employee Header Cell (black) ==== */
+.timesheet-table th:first-child {
+  background-color: #000;
+  color: #fff;
+  border-top-left-radius: 8px;
+  border-right: 1px solid #fff;
+  text-align: left;
+  padding-left: 10px;
+  position: sticky;
+  left: 0;
+  z-index: 6;
+}
 
+/* ==== Employee Column (white rows) ==== */
+.timesheet-table td:first-child {
+  background-color: #fff;
+  font-weight: 600;
+  text-align: left;
+  padding-left: 10px;
+  min-width: 120px;
+  position: sticky;
+  left: 0;
+  z-index: 5;
+  border-right: 1px solid #e0e0e0;
+  box-shadow: 2px 0 0 rgba(0, 0, 0, 0.03);
+}
 
- /* Timesheet Table Container*/
- .table-container {
-   position: relative;
-   max-width: 100%;
-   max-height: 420px;
-   overflow: auto;
-   border-radius: 8px;
-   background: #fff;
-   -webkit-overflow-scrolling: touch;
-   background-clip: padding-box; /* ensures scroll content doesn't bleed */
+/* ==== Regular Cells ==== */
+.timesheet-table td {
+  padding: 14px 8px;
+  text-align: center;
+  height: 50px;
+  border: 1px solid #e0e0e0;
+  box-sizing: border-box;
+}
 
- }
+/* ==== Prevent Border Bleed ==== */
+.timesheet-table th:not(:first-child),
+.timesheet-table td:not(:first-child) {
+  border-left: 0;
+}
 
- .table-container::after {
-   content: "";
-   position: absolute;
-   inset: 0;
-   border-radius: 8px;
-   pointer-events: none;
- }
-
- /* Timesheet Table */
-  .timesheet-table {
-    border-collapse: collapse;
-    width: max-content;
-    min-width: 100%;
-    white-space: nowrap;
-    table-layout: fixed;
-    box-sizing: border-box;
-  }
-
- /* Table Headers */
- .timesheet-table th {
-   background-color: #000;
-   color: #fff;
-   text-align: center;
-   font-weight: 600;
-   padding: 14px 8px;
-   white-space: nowrap;
-   height: 50px;
-   position: sticky;
-   top: 0;
-   z-index: 2;
-   border: 1px solid #fff;
-   box-sizing: border-box;
- }
-
- /* Table Cells */
- .timesheet-table td {
-   padding: 14px 8px;
-   text-align: center;
-   height: 50px;
-   border: 1px solid #e0e0e0;
-   box-sizing: border-box;
- }
-
- /* Employees Column */
- .timesheet-table td:first-child,
- .timesheet-table th:first-child {
-   background-color: #f9f9f9;
-   font-weight: 600;
-   text-align: left;
-   padding-left: 10px;
-   min-width: 120px;
-   position: sticky;
-   left: 0;
-   z-index: 3;
-   box-shadow: 2px 0 0 rgba(0, 0, 0, 0.05);
- }
-
-
- /* Scrollbar Styling for Table */
- .table-container::-webkit-scrollbar {
-   height: 8px;
- }
- .table-container::-webkit-scrollbar-thumb {
-   background: #bbb;
-   border-radius: 10px;
- }
- .table-container::-webkit-scrollbar-thumb:hover {
-   background: #888;
- }
-
- /* Row and Hover Effects */
- .timesheet-table tbody tr:nth-child(even) {
-   background-color: #fafafa;
- }
- .timesheet-table tbody tr:hover {
-   background-color: #f1f1f1;
- }
-
- /* Totals Row */
- .timesheet-table tfoot td {
-   font-weight: bold;
-   border-top: 2px solid #000;
- }
-
- /* Placeholder text when no data is available */
- .placeholder {
-   text-align: center;
-   padding: 20px;
-   font-style: italic;
-   color: #777;
-   background-color: #fafafa;
- }
-
- /* Rounded corners for top of table */
- .timesheet-table th:first-child {
-   border-top-left-radius: 8px;
- }
- .timesheet-table th:last-child {
-   border-top-right-radius: 8px;
- }
-
+/* ==== Column Widths ==== */
 .timesheet-table th:not(:first-child):not(:last-child),
 .timesheet-table td:not(:first-child):not(:last-child) {
   width: 56px;
@@ -357,4 +225,48 @@ text-area {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+
+/* ==== Scrollbar ==== */
+.table-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 10px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+
+/* ==== Hover & Row Effects ==== */
+.timesheet-table tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.timesheet-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* ==== Totals Row ==== */
+.timesheet-table tfoot td {
+  font-weight: bold;
+  border-top: 2px solid #000;
+}
+
+/* ==== Rounded Corners ==== */
+.timesheet-table th:last-child {
+  border-top-right-radius: 8px;
+}
+
+/* ==== Placeholder ==== */
+.placeholder {
+  text-align: center;
+  padding: 20px;
+  font-style: italic;
+  color: #777;
+  background-color: #fafafa;
 }
