@@ -119,5 +119,11 @@ functions:
       - httpApi:
           path: /saveTimesheet
           method: post
+  saveTimesheetMass:
+    handler: src/handlers/save_timesheet.massUpdate
+    events:
+      - httpApi:
+          path: /saveTimesheetMass
+          method: post
   
 
