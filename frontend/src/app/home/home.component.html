@@ -13,11 +13,11 @@
       <!-- Left: selectors -->
       <div style="display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
         <div class="selectorBox">
-          <p style="margin:0 0 6px 0;">Project Name</p>
+          <p style="margin:0 0 6px 0;">Projects</p>
           <select [(ngModel)]="selectedProject"
                   (change)="onProjectChange()"
                   style="min-width:220px;height:36px;border:1px solid #ccc;border-radius:4px;padding:4px 8px;">
-            <option *ngFor="let p of projects" [value]="p.id">{{ p.name }}</option>
+            <option *ngFor="let p of projects" [value]="p.name">{{ p.name }}</option>
           </select>
         </div>
 
@@ -47,35 +47,21 @@
   <div class="box-2">
     <div class="table-container">
       <table class="timesheet-table">
-
-        <!-- table Header -->
         <thead>
         <tr>
           <th>Employee</th>
-          <!-- Generate Days based on selected Month-->
           <th *ngFor="let day of daysInMonth">{{ day }}</th>
           <th>Total</th>
         </tr>
         </thead>
-
-        <!-- Table Body-->
         <tbody>
-        <tr>
-          <td><!-- Employee name here --></td>
-          <td *ngFor="let day of daysInMonth"></td>
-          <td>
+        <tr *ngFor="let employee of timesheetData.employees">
 
-          </td><!-- placeholder for hours-->
-        </tr>
-        <tr>
-          <td><!-- Employee name here --></td>
-          <td *ngFor="let day of daysInMonth"></td>
-          <td></td><!-- placeholder for hours-->
-        </tr>
-        <tr>
-          <td>
-
+        <td>{{ employee.name }}</td>
+          <td *ngFor="let day of daysInMonth">
+            {{ employee.hours[day] || '' }}
           </td>
+          <td>{{ getTotalHours(employee.hours) }}</td>
         </tr>
         </tbody>
       </table>

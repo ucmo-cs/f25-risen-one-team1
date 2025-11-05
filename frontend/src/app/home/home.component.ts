@@ -1,48 +1,56 @@
+// src/app/home/home.component.ts
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {provideNativeDateAdapter} from '@angular/material/core';
+import { provideNativeDateAdapter } from '@angular/material/core';
 import { ProjectService, Project } from '../services/project.service';
-
-
-interface previousRequest {
-  value: string;
-  viewValue: string;
-}
-
+import { TimesheetService } from '../services/timesheet.service';
 
 @Component({
   selector: 'app-form',
   providers: [provideNativeDateAdapter()],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrls: ['./home.component.css'] // fixed from "styleUrl" → correct key name
 })
-
-
 export class HomeComponent implements OnInit {
 
-  //stores text displayed as heading
-  selectedMonth: string = 'Please select a month';
-  //stores raw value form input month
-  selectedMonthValue: string = '';
-  //holds days of selected month
-  daysInMonth: number[] = [];
+  // ====== Display Variables ======
+  selectedMonth: string = 'Please select a month';  // text for heading
+  selectedMonthValue: string = '';                  // raw input month value
+  daysInMonth: number[] = [];                       // array of days for the selected month
 
-    selectedProject = '';
-    projects: Project[] = [];
-    private fallbackProjects: Project[] = [
-      { id: '', name: '(Project)' } // default placeholder
-    ];
+  // ====== Project / Timesheet Variables ======
+  projectName: string = 'Project 2';                // default project (for now)
+  selectedProject: string = '';                     // value selected from dropdown
+  projects: Project[] = [];                         // populated project list
+  timesheetData: { projectName: string; timeframe: string; employees: any[] } = {
+    projectName: '',
+    timeframe: '',
+    employees: []
+  };                        // holds API results for employees/hours
 
-  constructor (private router: Router, private projectService: ProjectService ) {}
+  // fallback if no projects are available
+  private fallbackProjects: Project[] = [
+    { id: '', name: '(Project)' }
+  ];
 
-  /* Sign In navigation Function */
-  ngOnInit(){
-      this.projects = this.fallbackProjects;
+  // ====== Constructor ======
+  constructor(
+    private router: Router,
+    private projectService: ProjectService,
+    private timesheetService: TimesheetService
+  ) {}
 
+  // ====== Lifecycle: ngOnInit ======
+  ngOnInit(): void {
+    // Initialize projects list (fetch from API or use fallback)
+    this.projects = this.fallbackProjects;
     this.projectService.getProjects().subscribe({
       next: (data) => {
         if (Array.isArray(data) && data.length > 0) {
           this.projects = data;
+
+                this.selectedProject = this.projects[0].name;
+                this.projectName = this.selectedProject;
         } else {
           this.projects = this.fallbackProjects;
         }
@@ -53,49 +61,101 @@ export class HomeComponent implements OnInit {
       }
     });
 
-    //get current date
-      const now = new Date();
-      const month = String(now.getMonth() + 1).padStart(2, '0');
-      const year = now.getFullYear();
+    // Get current date and set default selected month
+    const now = new Date();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+    this.selectedMonthValue = `${year}-${month}`;
+    this.selectedMonth = now.toLocaleString('default', { month: 'long', year: 'numeric' });
 
-  //set default input value to current month/year
-       this.selectedMonthValue = `${year}-${month}`;
-      this.selectedMonth = now.toLocaleString('default', { month: 'long', year: 'numeric' });
+    // Generate initial days and load data
+    this.generateDays(year, Number(month));
+    this.loadTimesheetData();
+  }
 
-      this.generateDays(year, Number(month));
-      }
-
-        onProjectChange(): void {
-          console.log('Selected project:', this.selectedProject);
-        }
-
-  signIn() {
+  // ====== Navigation ======
+  signIn(): void {
     this.router.navigate(['/login']);
   }
-  //called when user selects a new month
-    onMonthChange(): void {
-    //stop if no value is selected
-      if(!this.selectedMonthValue) return;
-  //splits into separate year and month parts
-     const [year, month] = this.selectedMonthValue.split('-');
-     const monthIndex = Number(month) - 1;
 
-  //convert numeric month to full name
-     const monthName = new Date(Number(year), monthIndex, 1)
-       .toLocaleString('default', { month: 'long' });
+  // ====== When Month Changes ======
+  onMonthChange(): void {
+    if (!this.selectedMonthValue) return;
 
-  //update the display heading
-      this.selectedMonth = `${monthName} ${year}`;
+    const [year, month] = this.selectedMonthValue.split('-');
+    const monthIndex = Number(month) - 1;
 
-  //generate number of days for selected month
+    // Format display text like "October 2025"
+    const monthName = new Date(Number(year), monthIndex, 1)
+      .toLocaleString('default', { month: 'long' });
+    this.selectedMonth = `${monthName} ${year}`;
+
+    // Regenerate days for new month and refresh timesheet
+    this.generateDays(year, Number(month));
+    this.loadTimesheetData();
+  }
+
+  // ====== When Project Changes ======
+  onProjectChange(): void {
+    console.log('Selected project:', this.selectedProject);
+    this.projectName = this.selectedProject;
+    this.loadTimesheetData();
+  }
+
+
+// src/app/home/home.component.ts  (only the method below changes)
+loadTimesheetData(): void {
+  if (!this.selectedMonthValue) return;
+
+  const [year, month] = this.selectedMonthValue.split('-');
+
+  const timeframe = `${new Date(Number(year), Number(month) - 1)
+    .toLocaleString('default', { month: 'long' })}_${year}`;
+
+  const projectName = this.selectedProject || this.projectName;
+
+  console.log('Fetching timesheet for:', projectName, timeframe);
+
+  // ✅ Always clear before loading (prevents stale UI)
+  this.timesheetData = { projectName, timeframe, employees: [] };
+
+  this.timesheetService.getTimesheet(projectName, timeframe).subscribe({
+    next: (data) => {
+      console.log('Received timesheet response:', data);
+
+      // ✅ If data contains employees → use it
+      if (data && data.employees) {
+        this.timesheetData = data;
+      } else {
+        // ✅ Otherwise reset to an empty result
+        this.timesheetData = { projectName, timeframe, employees: [] };
+      }
+
+      // ✅ Always regenerate days so UI re-renders header correctly
       this.generateDays(year, Number(month));
-    }
+    },
+    error: (err) => {
+      console.error('Error fetching timesheet:', err);
 
-  // creates an array of days for the selected month
-    private generateDays(year: string | number, month: number): void{
+      // ✅ Ensure table clears on error
+      this.timesheetData = { projectName, timeframe, employees: [] };
+    }
+  });
+}
+
+
+
+
+
+  // ====== Utility: Generate Days for Selected Month ======
+  private generateDays(year: string | number, month: number): void {
     const numDays = new Date(Number(year), month, 0).getDate();
+    this.daysInMonth = Array.from({ length: numDays }, (_, i) => i + 1);
+  }
+  // Calculates total hours for an employee
+  getTotalHours(hours: Record<number, number> | undefined): number {
+    if (!hours) return 0;
+    return Object.values(hours).reduce((a, b) => a + b, 0);
+  }
 
-  //creates and array
-    this.daysInMonth = Array.from({length:numDays}, (_,i) => i +1);
-    }
 }
