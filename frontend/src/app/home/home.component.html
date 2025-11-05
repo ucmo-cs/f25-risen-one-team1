@@ -23,10 +23,11 @@
 
         <!-- Month Selector -->
 
+
         <div class="selectorBox">
           <p style="margin:0 0 6px 0;">Select Month</p>
           <!-- Angular two-way binding for selected month -->
-          <input type="month" [(ngModel)]="selectedMonthValue" (change) = "onMonthChange()">
+          <input style="min-width:220px;height:36px; border:1px solid #ccc;border-radius:4px;padding:4px 8px;" type="month" [(ngModel)]="selectedMonthValue" (change) = "onMonthChange()">
         </div>
       </div>
       <!-- Right: actions -->
@@ -39,17 +40,18 @@
     </div>
 
     <!-- Selected Month Display-->
-    <h2>{{selectedMonth}}</h2>
+    <h2 class="h2-month">{{selectedMonth}}</h2>
   </div>
 
   <!-- Time Sheet Table Selection -->
 
-  <div class="box-2">
+  <div class="box-3">
     <div class="table-container">
       <table class="timesheet-table">
         <thead>
         <tr>
-          <th>Employee</th>
+          <th style="text">Employee</th>
+          <!-- Generate Days based on selected Month-->
           <th *ngFor="let day of daysInMonth">{{ day }}</th>
           <th>Total</th>
         </tr>
@@ -69,7 +71,7 @@
   </div>
 
   <!-- Month Heading -->
-  <div class="box-3" style="border-top:none;padding-top:10px;">
+  <div class="box-4" style="border-top:none;padding-top:10px;">
     <div style="padding: 0 15px 0 15px;">
       <!-- Signature Lines -->
       <div style="display:flex;flex-wrap: wrap;gap:60px;justify-content:flex-start;margin-top:40px;">
@@ -85,5 +87,4 @@
     </div>
   </div>
 </div>
-
 </html>
