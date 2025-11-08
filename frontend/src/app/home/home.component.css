@@ -54,8 +54,8 @@ body {
   padding: 20px;
   background: #fff;
   margin: 0 auto;
-  border: 2px solid grey;
-  border-top: none;
+  border-right: 2px solid grey;
+  border-left: 2px solid grey;
   overflow: hidden;
 }
 
@@ -399,4 +399,41 @@ h1 {
 .current-day {
   background: rgba(251, 201, 0, 0.15);
   border-left: 2px solid #FBC900;
+}
+
+.signature-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 80px;
+  justify-content: flex-start;
+  margin-top: 40px;
+  padding: 10px 15px;
+}
+
+/* Individual signature boxes */
+.signature-box {
+  display: flex;
+  flex-direction: column;
+  min-width: 220px;
+}
+
+/* Label styling */
+.signature-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+/* The signature line itself */
+.signature-line {
+  border-bottom: 1.5px solid #999;
+  height: 32px;
+  border-radius: 2px;
+  background: linear-gradient(to bottom, #fff 60%, #fdfdfd 100%);
+  transition: border-color 0.2s ease;
+}
+
+.signature-line:hover {
+  border-color: #FBC900; /* subtle gold accent when hovered */
 }
