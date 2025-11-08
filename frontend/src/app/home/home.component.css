@@ -84,6 +84,32 @@ h1 {
   padding-top: 10px;
 }
 
+.month-nav-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: #f7f7f7;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.month-nav-btn:hover {
+  background: #FBC900;
+  color: #000;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  transform: translateY(-1px);
+}
+
+.month-nav-btn:active {
+  transform: scale(0.96);
+  background: #e0b800;
+}
+
 /* ==== Buttons ==== */
 .button-exportToPDF {
   background-color: transparent;
@@ -230,7 +256,7 @@ h1 {
 
 /* ==== Scrollbar ==== */
 .table-container::-webkit-scrollbar {
-  height: 8px;
+  height: 4px;
 }
 
 .table-container::-webkit-scrollbar-thumb {
@@ -251,6 +277,10 @@ h1 {
   background-color: #f1f1f1;
 }
 
+.timesheet-table th {
+  padding: 10px 14px;
+}
+
 /* ==== Totals Row ==== */
 .timesheet-table tfoot td {
   font-weight: bold;
@@ -269,4 +299,104 @@ h1 {
   font-style: italic;
   color: #777;
   background-color: #fafafa;
+}
+
+.holiday-cell {
+  background-color: #ffe6e6;
+  color: #b30000;
+  font-weight: bold;
+  text-align: center;
+  cursor: help; /* gives hover tooltip */
+}
+
+.events-list {
+  border-top: 1px solid #ccc;
+  margin-top: 24px;
+  padding-top: 12px;
+  font-size: 15px;
+}
+
+.events-list ul li {
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+
+
+/* Header two-line layout */
+.day-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.1;
+}
+.day-number { font-weight: 700; }
+.day-dow { font-size: 11px; opacity: 0.8; }
+
+/* Weekend visuals */
+.weekend-col {
+  background: #f2f2f2;      /* softer than the black weekday header */
+  color: #666;
+}
+.weekend-cell {
+  background: #fafafa;       /* subtle column shading */
+  color: #888;
+}
+
+/* Optional: diagonal “closed” stripes for weekends */
+.weekend-cell {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(0,0,0,0.04) 0,
+    rgba(0,0,0,0.04) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+}
+
+/* Keep holidays dominant if they overlap a weekend */
+.holiday-cell {
+  background-color: #ffe6e6;
+  color: #b30000;
+  font-weight: 700;
+}
+
+.legend-container {
+  justify-content: flex-end;
+}
+
+.legend {
+  margin-top:8px;
+  font-size:13px;
+  opacity:.85;
+}
+
+.weekendLegend,
+.holidayLegend {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.weekendLegend {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(0, 0, 0, 0.04) 0,
+    rgba(0, 0, 0, 0.04) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+}
+
+.holidayLegend {
+  background: #ffe6e6;
+  border: 1px solid #f3caca;
+}
+
+.current-day {
+  background: rgba(251, 201, 0, 0.15);
+  border-left: 2px solid #FBC900;
 }
