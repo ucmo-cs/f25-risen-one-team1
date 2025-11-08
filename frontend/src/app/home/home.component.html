@@ -13,7 +13,7 @@
       <!-- Left: selectors -->
       <div style="display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
         <div class="selectorBox">
-          <p style="margin:0 0 6px 0;">Projects</p>
+          <p style="margin-right:6px;">Projects</p>
           <select [(ngModel)]="selectedProject"
                   (change)="onProjectChange()"
                   style="min-width:220px;height:36px;border:1px solid #ccc;border-radius:4px;padding:4px 8px;">
@@ -22,12 +22,30 @@
         </div>
 
         <!-- Month Selector -->
+        <div class="selectorBox" style="display:flex;align-items:center;gap:10px;">
+          <p style="margin:0 6px 0 0;">Select Month</p>
 
+          <!-- Month Navigation Buttons -->
+          <button type="button"
+                  (click)="changeMonth(-1)"
+                  aria-label="Previous month"
+                  class="month-nav-btn">‹</button>
 
-        <div class="selectorBox">
-          <p style="margin:0 0 6px 0;">Select Month</p>
           <!-- Angular two-way binding for selected month -->
-          <input style="min-width:220px;height:36px; border:1px solid #ccc;border-radius:4px;padding:4px 8px;" type="month" [(ngModel)]="selectedMonthValue" (change) = "onMonthChange()">
+          <input type="month"
+                 [(ngModel)]="selectedMonthValue"
+                 (change)="onMonthChange()"
+                 style="min-width:200px;
+                height:36px;
+                border:1px solid #ccc;
+                border-radius:4px;
+                padding:4px 8px;
+                text-align:center;">
+
+          <button type="button"
+                  (click)="changeMonth(1)"
+                  aria-label="Next month"
+                  class="month-nav-btn">›</button>
         </div>
       </div>
       <!-- Right: actions -->
@@ -52,21 +70,64 @@
         <tr>
           <th style="text">Employee</th>
           <!-- Generate Days based on selected Month-->
-          <th *ngFor="let day of daysInMonth">{{ day }}</th>
+          <th
+            *ngFor="let day of daysInMonth"
+            [ngClass]="{ 'weekend-col': isWeekend(day) }"
+            [title]="getDowLabel(day)"
+          >
+            <div class="day-header">
+              <div class="day-number">{{ day }}</div>
+              <div class="day-dow">{{ getDowLabel(day) }}</div>
+            </div>
+          </th>
           <th>Total</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let employee of timesheetData.employees">
 
-        <td>{{ employee.name }}</td>
-          <td *ngFor="let day of daysInMonth">
+          <td>{{ employee.name }}</td>
+          <td
+            *ngFor="let day of daysInMonth"
+            [ngClass]="{
+              'holiday-cell': isHoliday(day),
+              'weekend-cell': !isHoliday(day) && isWeekend(day),
+              'current-day': isToday(day)
+            }"
+            [title]="isWeekend(day) ? 'Closed (Weekend)' : getHolidayName(day)">
             {{ employee.hours[day] || '' }}
           </td>
           <td>{{ getTotalHours(employee.hours) }}</td>
         </tr>
         </tbody>
       </table>
+    </div>
+    <div class="events-list"
+         style="margin-top: 20px; padding: 10px; display: flex; justify-content: space-between; flex-wrap: wrap; align-items: flex-start;">
+
+      <!-- Left: Events list -->
+      <div style="flex: 1; min-width: 250px;">
+        <span style="font-weight: bold;">Events This Month:</span>
+
+        <ul *ngIf="formattedHolidays.length > 0; else noHolidays"
+            style="margin-top: 10px; list-style-type: disc; padding-left: 24px;">
+          <li *ngFor="let h of formattedHolidays">
+            <strong>{{ h.date }}</strong> — {{ h.name }}
+          </li>
+        </ul>
+
+        <ng-template #noHolidays>
+          <p style="margin: 6px 0 0 0;">No holidays this month 🎉</p>
+        </ng-template>
+      </div>
+
+      <div class="legend-container"
+           style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 10px;">
+        <div class="legend" style="display: flex; align-items: center; gap: 16px;">
+          <span class="weekendLegend"></span> Closed (Weekends)
+          <span class="holidayLegend"></span> Holiday
+        </div>
+      </div>
     </div>
   </div>
 
