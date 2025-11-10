@@ -5,6 +5,8 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { ProjectService, Project } from '../services/project.service';
 import { TimesheetService } from '../services/timesheet.service';
 import { HolidayService, PublicHoliday } from '../services/holiday.service';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 
 @Component({
@@ -32,6 +34,9 @@ export class HomeComponent implements OnInit {
 
   countryCode: string = 'US';
   holidayByDay = new Map<number, string>();
+
+  weeks: number[][] = [];
+  showPrintLayout = false;   // controls rendering the print layout
 
   // fallback if no projects are available
   private fallbackProjects: Project[] = [
@@ -77,8 +82,7 @@ export class HomeComponent implements OnInit {
     // Generate initial days and load data
     this.generateDays(year, Number(month));
     this.loadTimesheetData();
-    this.loadHolidays(Number(year), Number(month));  // <-- add
-
+    this.loadHolidays(Number(year), Number(month));
   }
 
   // ====== Navigation ======
@@ -101,8 +105,7 @@ export class HomeComponent implements OnInit {
     // Regenerate days for new month and refresh timesheet
     this.generateDays(year, Number(month));
     this.loadTimesheetData();
-    this.loadHolidays(Number(year), Number(month));  // <-- add
-
+    this.loadHolidays(Number(year), Number(month));
   }
 
   // ====== When Project Changes ======
@@ -140,48 +143,45 @@ export class HomeComponent implements OnInit {
     todayCell?.scrollIntoView({ behavior: 'smooth', inline: 'center' });
   }
 
+  // src/app/home/home.component.ts  (only the method below changes)
+  loadTimesheetData(): void {
+    if (!this.selectedMonthValue) return;
 
+    const [year, month] = this.selectedMonthValue.split('-');
 
+    const timeframe = `${new Date(Number(year), Number(month) - 1)
+      .toLocaleString('default', { month: 'long' })}_${year}`;
 
-// src/app/home/home.component.ts  (only the method below changes)
-loadTimesheetData(): void {
-  if (!this.selectedMonthValue) return;
+    const projectName = this.selectedProject || this.projectName;
 
-  const [year, month] = this.selectedMonthValue.split('-');
+    console.log('Fetching timesheet for:', projectName, timeframe);
 
-  const timeframe = `${new Date(Number(year), Number(month) - 1)
-    .toLocaleString('default', { month: 'long' })}_${year}`;
+    // ✅ Always clear before loading (prevents stale UI)
+    this.timesheetData = { projectName, timeframe, employees: [] };
 
-  const projectName = this.selectedProject || this.projectName;
+    this.timesheetService.getTimesheet(projectName, timeframe).subscribe({
+      next: (data) => {
+        console.log('Received timesheet response:', data);
 
-  console.log('Fetching timesheet for:', projectName, timeframe);
+        // ✅ If data contains employees → use it
+        if (data && data.employees) {
+          this.timesheetData = data;
+        } else {
+          // ✅ Otherwise reset to an empty result
+          this.timesheetData = { projectName, timeframe, employees: [] };
+        }
 
-  // ✅ Always clear before loading (prevents stale UI)
-  this.timesheetData = { projectName, timeframe, employees: [] };
+        // ✅ Always regenerate days so UI re-renders header correctly
+        this.generateDays(year, Number(month));
+      },
+      error: (err) => {
+        console.error('Error fetching timesheet:', err);
 
-  this.timesheetService.getTimesheet(projectName, timeframe).subscribe({
-    next: (data) => {
-      console.log('Received timesheet response:', data);
-
-      // ✅ If data contains employees → use it
-      if (data && data.employees) {
-        this.timesheetData = data;
-      } else {
-        // ✅ Otherwise reset to an empty result
+        // ✅ Ensure table clears on error
         this.timesheetData = { projectName, timeframe, employees: [] };
       }
-
-      // ✅ Always regenerate days so UI re-renders header correctly
-      this.generateDays(year, Number(month));
-    },
-    error: (err) => {
-      console.error('Error fetching timesheet:', err);
-
-      // ✅ Ensure table clears on error
-      this.timesheetData = { projectName, timeframe, employees: [] };
-    }
-  });
-}
+    });
+  }
 
 
   // ====== Utility: Generate Days for Selected Month ======
@@ -233,7 +233,6 @@ loadTimesheetData(): void {
         date: `${monthName} ${day}`, // e.g. "Nov 27"
         name,
       }));
-
     return holidays;
   }
 
