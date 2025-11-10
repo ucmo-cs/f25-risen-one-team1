@@ -54,8 +54,8 @@ body {
   padding: 20px;
   background: #fff;
   margin: 0 auto;
-  border: 2px solid grey;
-  border-top: none;
+  border-right: 2px solid grey;
+  border-left: 2px solid grey;
   overflow: hidden;
 }
 
@@ -190,9 +190,10 @@ h1 {
   color: #fff;
   text-align: center;
   font-weight: 600;
-  padding: 14px 8px;
+  font-size: 12px;
+  padding: 8px;
   white-space: nowrap;
-  height: 50px;
+  height: 32px;
   position: sticky;
   top: 0;
   z-index: 2;
@@ -218,7 +219,6 @@ h1 {
   background-color: #fff;
   font-weight: 600;
   text-align: left;
-  padding-left: 10px;
   min-width: 120px;
   position: sticky;
   left: 0;
@@ -229,9 +229,10 @@ h1 {
 
 /* ==== Regular Cells ==== */
 .timesheet-table td {
-  padding: 14px 8px;
+  padding: 8px;
   text-align: center;
-  height: 50px;
+  font-size: 12px;
+  height: 32px;
   border: 1px solid #e0e0e0;
   box-sizing: border-box;
 }
@@ -245,9 +246,9 @@ h1 {
 /* ==== Column Widths ==== */
 .timesheet-table th:not(:first-child):not(:last-child),
 .timesheet-table td:not(:first-child):not(:last-child) {
-  width: 56px;
-  min-width: 56px;
-  max-width: 56px;
+  width: 32px;
+  min-width: 32px;
+  max-width: 32px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -278,7 +279,7 @@ h1 {
 }
 
 .timesheet-table th {
-  padding: 10px 14px;
+  padding: 8px;
 }
 
 /* ==== Totals Row ==== */
@@ -330,7 +331,7 @@ h1 {
   line-height: 1.1;
 }
 .day-number { font-weight: 700; }
-.day-dow { font-size: 11px; opacity: 0.8; }
+.day-dow { font-size: 9px; opacity: 0.8; }
 
 /* Weekend visuals */
 .weekend-col {
@@ -399,4 +400,41 @@ h1 {
 .current-day {
   background: rgba(251, 201, 0, 0.15);
   border-left: 2px solid #FBC900;
+}
+
+.signature-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 80px;
+  justify-content: flex-start;
+  margin-top: 40px;
+  padding: 10px 15px;
+}
+
+/* Individual signature boxes */
+.signature-box {
+  display: flex;
+  flex-direction: column;
+  min-width: 220px;
+}
+
+/* Label styling */
+.signature-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+/* The signature line itself */
+.signature-line {
+  border-bottom: 1.5px solid #999;
+  height: 32px;
+  border-radius: 2px;
+  background: linear-gradient(to bottom, #fff 60%, #fdfdfd 100%);
+  transition: border-color 0.2s ease;
+}
+
+.signature-line:hover {
+  border-color: #FBC900; /* subtle gold accent when hovered */
 }
