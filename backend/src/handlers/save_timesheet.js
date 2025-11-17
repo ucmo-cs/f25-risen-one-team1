@@ -79,8 +79,6 @@ module.exports.massUpdate = async (event) => {
             employees[emp] = {};
             continue;
         }
-        
-        
         if (typeof days !== 'object' || days === null){
             return {
                 statusCode: 400,
@@ -89,7 +87,7 @@ module.exports.massUpdate = async (event) => {
         }
         for (const [day, hours] of Object.entries(days)){
             if (typeof hours !== 'number' || !Number.isFinite(hours)){
-                return{ statusCode: 400, body: JSON.stringify({ message: `Invalid hours at ${emp}.${day}` }) };
+                return{ statusCode: 400, body: JSON.stringify({ message: `Invalid hours at ${emp}.${day}` })};
             }
         }
     }

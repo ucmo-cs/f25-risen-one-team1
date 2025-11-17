@@ -52,8 +52,8 @@
       <div style="display:flex;align-items:center;gap:12px;margin-left:auto;">
         <!--Will eventually replace with components-->
         <button class="button-exportToPDF">Export to PDF</button> <!--(click)="exportToPDFPortrait()-->
-        <button class="button-save" style="background:#FBC900;border:none;">Edit</button>
-        <button class="button-save" style="background:#FBC900;border:none;">Save</button>
+        <button class="button-save" (click)="editTimesheet()" style="background:#FBC900;border:none;">Edit</button>
+        <button class="button-save" (click)="saveTimesheet()" style="background:#FBC900;border:none;">Save</button>
       </div>
     </div>
 
@@ -103,7 +103,7 @@
       </table>
     </div>
     <div class="events-list"
-         style="margin-top: 20px; padding: 10px; display: flex; justify-content: space-between; flex-wrap: wrap; align-items: flex-start;">
+         style="margin-top:20px;padding:10px;display:flex;justify-content:space-between;flex-wrap:wrap;align-items:flex-start;">
 
       <!-- Left: Events list -->
       <div style="flex: 1; min-width: 250px;">

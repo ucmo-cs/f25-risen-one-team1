@@ -5,8 +5,9 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { ProjectService, Project } from '../services/project.service';
 import { TimesheetService } from '../services/timesheet.service';
 import { HolidayService, PublicHoliday } from '../services/holiday.service';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+import { SavingService, SaveProject } from '../services/saving.service';
+// import jsPDF from 'jspdf';
+// import html2canvas from 'html2canvas';
 
 
 @Component({
@@ -38,6 +39,16 @@ export class HomeComponent implements OnInit {
   weeks: number[][] = [];
   showPrintLayout = false;   // controls rendering the print layout
 
+
+  // Saving Parameters
+  editing: boolean = false;
+  editingTimesheet: {projectName: string; timeframe: string; employees: any[]} = {
+    projectName: '',
+    timeframe: '',
+    employees: [] = []
+  }
+
+
   // fallback if no projects are available
   private fallbackProjects: Project[] = [
     { id: '', name: '(Project)' }
@@ -48,7 +59,8 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private projectService: ProjectService,
     private timesheetService: TimesheetService,
-    private holidayService: HolidayService
+    private holidayService: HolidayService,
+    private savingService: SavingService
   ) {}
 
   // ====== Lifecycle: ngOnInit ======
@@ -257,5 +269,17 @@ export class HomeComponent implements OnInit {
     return today.getDate() === day &&
       today.getMonth() + 1 === month &&
       today.getFullYear() === year;
+  }
+
+  editTimesheet():void {
+    this.editTimesheet = JSON.parse(JSON.stringify(this.timesheetData))
+    console.log(this.editTimesheet)
+  }
+
+  saveTimesheet(): void{
+    if (!this.editing){
+      this.savingService.saveProject(this.timesheetData.timeframe, this.editingTimesheet.employees , this.timesheetData.projectName);
+    }
+
   }
 }
