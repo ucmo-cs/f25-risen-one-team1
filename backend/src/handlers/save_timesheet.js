@@ -34,13 +34,12 @@ module.exports.handler = async (event) => {
     };
 
     try {
-        const data = await DynamoDB.update(updateParams).promise();
+        await DynamoDB.update(updateParams).promise();
 
         return {
             statusCode: 200,
             body: JSON.stringify({ 
-                message: 'Timesheet updated successfully', 
-                timesheet: data.Attributes 
+                message: 'Timesheet updated successfully'
             })
         };
     } catch (error) {
@@ -61,8 +60,9 @@ module.exports.handler = async (event) => {
 
 
 module.exports.massUpdate = async (event) => {
+    console.log(event.body)
     const requestBody = JSON.parse(event.body)
-
+    console.log(requestBody)
     // Formulation from the json parse
     const {projectName, timeframe, employees} = requestBody;
 

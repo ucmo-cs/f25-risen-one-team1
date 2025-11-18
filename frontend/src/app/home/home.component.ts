@@ -272,13 +272,35 @@ export class HomeComponent implements OnInit {
   }
 
   editTimesheet():void {
-    this.editTimesheet = JSON.parse(JSON.stringify(this.timesheetData))
-    console.log(this.editTimesheet)
+    this.editingTimesheet = JSON.parse(JSON.stringify(this.timesheetData))
+    this.editing = !this.editing
+    console.log(this.editingTimesheet)
   }
 
   saveTimesheet(): void{
-    if (!this.editing){
-      this.savingService.saveProject(this.timesheetData.timeframe, this.editingTimesheet.employees , this.timesheetData.projectName);
+    // Checks to see if we are in the editing stage
+    if (this.editing){
+      // Calls Save Project
+      this.savingService.saveProject(
+        this.timesheetData.timeframe, 
+        this.editingTimesheet.employees, 
+        this.timesheetData.projectName).subscribe({
+          next: success => {
+              if (success) {
+            // Setting the editing Timesheet to the current one and disabling the timesheet mode
+            this.timesheetData = JSON.parse(JSON.stringify(this.editingTimesheet))
+            this.editing = false;
+            console.log("Saving successful");
+          }
+            else{
+              console.error("Failed to save timesheet")
+            }
+        }, error: error => {
+              console.error("Error saving timesheet", error);
+        }
+      });
+
+      this.editing = false;
     }
 
   }

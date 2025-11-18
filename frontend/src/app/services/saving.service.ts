@@ -14,30 +14,19 @@ export interface SaveProject {
 })
 export class SavingService{
     private apiUrl = 'https://66w84tfuvb.execute-api.us-east-1.amazonaws.com/saveTimesheetMass'
+    // private apiUrl = "http://localhost:3000/saveTimesheetMass"
 
     constructor(private http: HttpClient){}
 
-    saveProject(timeframe: string, employees: any[], projectName: string): any{
+    saveProject(timeframe: string, employees: any[], projectName: string): Observable<boolean>{
         var employeeMap: Record< string, Record<number,number>> ={}
         employees.map(empl => {
-            if(empl?.hours){
-                empl.hours[6] = -1
-            }
             employeeMap[empl?.name] = empl?.hours
         })
-        console.log(employees)
         console.log(employeeMap)
-        
-        // return this.http.post<any>(this.apiUrl,{"employees": employeeMap, "timesheet":timesheet, "projectName":projectName}).pipe(
-        //     map(response => {
-
-        //         const res = response.body
-        //         if (res){
-        //         }
-        //     })
-        // )
-
-
+        return this.http.post<any>(this.apiUrl,{"employees": employeeMap, "timeframe":timeframe, "projectName":projectName}, {observe:"response"}).pipe(
+            map(response => response.status >= 200 && response.status < 300)
+        )
     }
 
 
