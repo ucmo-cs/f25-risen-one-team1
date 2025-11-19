@@ -438,3 +438,59 @@ h1 {
 .signature-line:hover {
   border-color: #FBC900; /* subtle gold accent when hovered */
 }
+
+input {
+  background-color: #fffbe6; /* light yellow for editing */
+}
+/* Remove spinners in Chrome, Edge, Safari */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Remove spinners in Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+/* Remove yellow autofill background */
+input[type="number"]:-webkit-autofill,
+input[type="number"]:-webkit-autofill:hover,
+input[type="number"]:-webkit-autofill:focus,
+input[type="number"]:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+  box-shadow: 0 0 0px 1000px white inset !important;
+  background-color: white !important;
+}
+
+/* General background override for number inputs */
+input[type="number"] {
+  background-color: white !important;
+}
+input[type="number"] {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 2px;
+  height: 28px;
+  outline: none;
+}
+
+input[type="number"]:focus {
+  border-color: #FBC900;
+  box-shadow: 0 0 4px rgba(251,201,0,0.4);
+}
+/* Force the month picker (input[type="month"]) to stay white */
+input[type="month"] {
+  background-color: white !important;
+  color: #000;
+}
+
+/* Remove autofill yellow background for month input */
+input[type="month"]:-webkit-autofill,
+input[type="month"]:-webkit-autofill:hover,
+input[type="month"]:-webkit-autofill:focus,
+input[type="month"]:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+  box-shadow: 0 0 0px 1000px white inset !important;
+  background-color: white !important;
+}

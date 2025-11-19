@@ -16,6 +16,7 @@
           <p style="margin-right:6px;">Projects</p>
           <select [(ngModel)]="selectedProject"
                   (change)="onProjectChange()"
+                  [disabled]="editing"
                   style="min-width:220px;height:36px;border:1px solid #ccc;border-radius:4px;padding:4px 8px;">
             <option *ngFor="let p of projects" [value]="p.name">{{ p.name }}</option>
           </select>
@@ -29,12 +30,14 @@
           <button type="button"
                   (click)="changeMonth(-1)"
                   aria-label="Previous month"
+                  [disabled]="editing"
                   class="month-nav-btn">‹</button>
 
           <!-- Angular two-way binding for selected month -->
           <input type="month"
                  [(ngModel)]="selectedMonthValue"
                  (change)="onMonthChange()"
+                 [disabled]="editing"
                  style="min-width:200px;
                 height:36px;
                 border:1px solid #ccc;
@@ -45,6 +48,7 @@
           <button type="button"
                   (click)="changeMonth(1)"
                   aria-label="Next month"
+                  [disabled]="editing"
                   class="month-nav-btn">›</button>
         </div>
       </div>
@@ -52,8 +56,22 @@
       <div style="display:flex;align-items:center;gap:12px;margin-left:auto;">
         <!--Will eventually replace with components-->
         <button class="button-exportToPDF">Export to PDF</button> <!--(click)="exportToPDFPortrait()-->
-        <button class="button-save" (click)="editTimesheet()" style="background:#FBC900;border:none;">Edit</button>
-        <button class="button-save" (click)="saveTimesheet()" style="background:#FBC900;border:none;">Save</button>
+        <button
+          class="button-save"
+          *ngIf="!editing"
+          (click)="editTimesheet()"
+        >
+          Edit
+        </button>
+
+        <button
+          class="button-save"
+          *ngIf="editing"
+          (click)="saveTimesheet()"
+        >
+          Save
+        </button>
+
       </div>
     </div>
 
@@ -84,19 +102,36 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let employee of timesheetData.employees">
+        <tr *ngFor="let employee of (editing ? editingTimesheet.employees : timesheetData.employees); let i = index">
 
-          <td>{{ employee.name }}</td>
+        <td>{{ employee.name }}</td>
           <td
             *ngFor="let day of daysInMonth"
             [ngClass]="{
-              'holiday-cell': isHoliday(day),
-              'weekend-cell': !isHoliday(day) && isWeekend(day),
-              'current-day': isToday(day)
-            }"
-            [title]="isWeekend(day) ? 'Closed (Weekend)' : getHolidayName(day)">
-            {{ employee.hours[day] || '' }}
+      'holiday-cell': isHoliday(day),
+      'weekend-cell': !isHoliday(day) && isWeekend(day),
+      'current-day': isToday(day)
+  }"
+          >
+            <!-- If editing → show input -->
+            <input
+              *ngIf="editing && !isHoliday(day)"
+              type="number"
+              style="width:32px;text-align:center;"
+              [(ngModel)]="editingTimesheet.employees[i].hours[day]"
+            />
+
+            <!-- READ-ONLY on holidays -->
+            <span *ngIf="editing && isHoliday(day)" style="cursor:not-allowed;opacity:0.6;">
+  {{ editingTimesheet.employees[i].hours[day] || '' }}
+</span>
+
+            <!-- NORMAL VIEW MODE -->
+            <span *ngIf="!editing">
+  {{ employee.hours[day] || '' }}
+</span>
           </td>
+
           <td>{{ getTotalHours(employee.hours) }}</td>
         </tr>
         </tbody>

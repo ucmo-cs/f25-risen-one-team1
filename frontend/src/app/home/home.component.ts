@@ -277,31 +277,45 @@ export class HomeComponent implements OnInit {
     console.log(this.editingTimesheet)
   }
 
-  saveTimesheet(): void{
-    // Checks to see if we are in the editing stage
-    if (this.editing){
-      // Calls Save Project
-      this.savingService.saveProject(
-        this.timesheetData.timeframe, 
-        this.editingTimesheet.employees, 
-        this.timesheetData.projectName).subscribe({
-          next: success => {
-              if (success) {
-            // Setting the editing Timesheet to the current one and disabling the timesheet mode
-            this.timesheetData = JSON.parse(JSON.stringify(this.editingTimesheet))
-            this.editing = false;
-            console.log("Saving successful");
-          }
-            else{
-              console.error("Failed to save timesheet")
-            }
-        }, error: error => {
-              console.error("Error saving timesheet", error);
-        }
-      });
+ saveTimesheet(): void {
 
-      this.editing = false;
-    }
+   if (!this.editing) return;
 
-  }
+   //Clean and validate BEFORE sending to backend
+   for (const emp of this.editingTimesheet.employees) {
+     for (const day of this.daysInMonth) {
+       const val = emp.hours[day];
+
+       if (val === '' || val === null || val === undefined) {
+         emp.hours[day] = 0;
+       } else {
+         emp.hours[day] = Number(val);
+         if (isNaN(emp.hours[day])) emp.hours[day] = 0;
+       }
+     }
+   }
+
+   // Call backend using correct order
+this.savingService.saveProject(
+  this.timesheetData.timeframe,
+  this.editingTimesheet.employees,
+  this.timesheetData.projectName
+).subscribe({
+     next: (success) => {
+       if (success) {
+         // 3. Apply changes only on success
+         this.timesheetData = JSON.parse(JSON.stringify(this.editingTimesheet));
+         this.editing = false;
+         console.log("Saving successful");
+       } else {
+         console.error("Failed to save timesheet");
+       }
+     },
+     error: (error) => {
+       console.error("Error saving timesheet", error);
+       // Keep editing enabled so user doesn't lose edits
+     }
+   });
+ }
+
 }
