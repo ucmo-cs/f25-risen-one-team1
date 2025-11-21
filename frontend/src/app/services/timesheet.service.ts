@@ -12,7 +12,7 @@ export interface TimesheetDTO {
 @Injectable({ providedIn: 'root' })
 export class TimesheetService {
   private apiUrl = 'https://66w84tfuvb.execute-api.us-east-1.amazonaws.com/getTimesheet';
-
+  // private apiUrl = 'http://localhost:3000/getTimesheet'
   constructor(private http: HttpClient) {}
 
   getTimesheet(projectName: string, timeframe: string): Observable<TimesheetDTO> {

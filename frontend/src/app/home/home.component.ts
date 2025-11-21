@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   daysInMonth: number[] = [];                       // array of days for the selected month
 
   // ====== Project / Timesheet Variables ======
-  projectName: string = 'Project 2';                // default project (for now)
+  projectName: string = 'Project 1';                // default project (for now)
   selectedProject: string = '';                     // value selected from dropdown
   projects: Project[] = [];                         // populated project list
   timesheetData: { projectName: string; timeframe: string; employees: any[] } = {
