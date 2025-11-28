@@ -5,6 +5,8 @@ import { AppComponent } from './app.component';
 import { AppHeaderComponent } from './components/app-header/app-header.component';
 import { AppFooterComponent } from './components/app-footer/app-footer.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { ButtonComponent } from './components/button/button.component';
+
 
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
@@ -65,6 +67,7 @@ import { LoginComponent } from './login/login.component';
       HomeComponent,
       SidenavComponent,
       LoginComponent,
+      ButtonComponent,
       AppComponent
     ],
     exports: [],

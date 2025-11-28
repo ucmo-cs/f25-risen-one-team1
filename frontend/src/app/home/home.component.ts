@@ -1,13 +1,13 @@
 // src/app/home/home.component.ts
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { ProjectService, Project } from '../services/project.service';
 import { TimesheetService } from '../services/timesheet.service';
-import { HolidayService, PublicHoliday } from '../services/holiday.service';
-import { SavingService, SaveProject } from '../services/saving.service';
-// import jsPDF from 'jspdf';
-// import html2canvas from 'html2canvas';
+import { HolidayService } from '../services/holiday.service';
+import { SavingService } from '../services/saving.service';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 
 @Component({
@@ -16,45 +16,30 @@ import { SavingService, SaveProject } from '../services/saving.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
 
-  // ====== Display Variables ======
-  selectedMonth: string = 'Please select a month';  // text for heading
-  selectedMonthValue: string = '';                  // raw input month value
-  daysInMonth: number[] = [];                       // array of days for the selected month
+  selectedMonth: string = 'Please select a month';
+  selectedMonthValue: string = '';
+  daysInMonth: number[] = [];
+  showPrintLayout = false;
 
-  // ====== Project / Timesheet Variables ======
-  projectName: string = 'Project 1';                // default project (for now)
-  selectedProject: string = '';                     // value selected from dropdown
-  projects: Project[] = [];                         // populated project list
-  timesheetData: { projectName: string; timeframe: string; employees: any[] } = {
-    projectName: '',
-    timeframe: '',
-    employees: []
-  };                        // holds API results for employees/hours
+  projectName: string = 'Project 1';
+  selectedProject: string = '';
+  projects: Project[] = [];
+  timesheetData = { projectName: '', timeframe: '', employees: [] as any[] };
+
+  currentYear = new Date().getFullYear();
 
   countryCode: string = 'US';
   holidayByDay = new Map<number, string>();
 
-  weeks: number[][] = [];
-  showPrintLayout = false;   // controls rendering the print layout
+  editing = false;
+  editingTimesheet = { projectName: '', timeframe: '', employees: [] as any[] };
 
+  private timesheetCache = new Map<string, any[]>();
 
-  // Saving Parameters
-  editing: boolean = false;
-  editingTimesheet: {projectName: string; timeframe: string; employees: any[]} = {
-    projectName: '',
-    timeframe: '',
-    employees: [] = []
-  }
+  private fallbackProjects: Project[] = [{ id: '', name: '(Project)' }];
 
-
-  // fallback if no projects are available
-  private fallbackProjects: Project[] = [
-    { id: '', name: '(Project)' }
-  ];
-
-  // ====== Constructor ======
   constructor(
     private router: Router,
     private projectService: ProjectService,
@@ -63,86 +48,16 @@ export class HomeComponent implements OnInit {
     private savingService: SavingService
   ) {}
 
-  // ====== Lifecycle: ngOnInit ======
   ngOnInit(): void {
-    // Initialize projects list (fetch from API or use fallback)
-    this.projects = this.fallbackProjects;
-    this.projectService.getProjects().subscribe({
-      next: (data) => {
-        if (Array.isArray(data) && data.length > 0) {
-          this.projects = data;
-
-                this.selectedProject = this.projects[0].name;
-                this.projectName = this.selectedProject;
-        } else {
-          this.projects = this.fallbackProjects;
-        }
-      },
-      error: (err) => {
-        console.error('Failed to load projects in HomeComponent', err);
-        this.projects = this.fallbackProjects;
-      }
-    });
-
-    // Get current date and set default selected month
-    const now = new Date();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const year = now.getFullYear();
-    this.selectedMonthValue = `${year}-${month}`;
-    this.selectedMonth = now.toLocaleString('default', { month: 'long', year: 'numeric' });
-
-    // Generate initial days and load data
-    this.generateDays(year, Number(month));
+    this.loadProjects();
+    this.setInitialMonth();
+    this.generateDaysForMonth();
     this.loadTimesheetData();
-    this.loadHolidays(Number(year), Number(month));
+    this.loadHolidays();
   }
 
-  // ====== Navigation ======
-  signIn(): void {
-    this.router.navigate(['/login']);
-  }
-
-  // ====== When Month Changes ======
-  onMonthChange(): void {
-    if (!this.selectedMonthValue) return;
-
-    const [year, month] = this.selectedMonthValue.split('-');
-    const monthIndex = Number(month) - 1;
-
-    // Format display text like "October 2025"
-    const monthName = new Date(Number(year), monthIndex, 1)
-      .toLocaleString('default', { month: 'long' });
-    this.selectedMonth = `${monthName} ${year}`;
-
-    // Regenerate days for new month and refresh timesheet
-    this.generateDays(year, Number(month));
-    this.loadTimesheetData();
-    this.loadHolidays(Number(year), Number(month));
-  }
-
-  // ====== When Project Changes ======
-  onProjectChange(): void {
-    console.log('Selected project:', this.selectedProject);
-    this.projectName = this.selectedProject;
-    this.loadTimesheetData();
-  }
-
-  // Jump months by offset: -1 = previous month, +1 = next month
-  changeMonth(offset: number): void {
-    if (!this.selectedMonthValue) return;
-
-    // Parse current YYYY-MM
-    const [y, m] = this.selectedMonthValue.split('-').map(Number);
-    const d = new Date(y, m - 1, 1);
-
-    // Move by offset months
-    d.setMonth(d.getMonth() + offset);
-
-    // Rebuild YYYY-MM and reuse your existing logic
-    const newMonth = String(d.getMonth() + 1).padStart(2, '0');
-    const newYear = d.getFullYear();
-    this.selectedMonthValue = `${newYear}-${newMonth}`;
-    this.onMonthChange();  // regenerates days, reloads data, reloads holidays
+  ngAfterViewInit(): void {
+    document.querySelector('.current-day')?.scrollIntoView({ behavior: 'smooth', inline: 'center' });
   }
 
   @HostListener('window:keydown', ['$event'])
@@ -150,79 +65,150 @@ export class HomeComponent implements OnInit {
     if (e.key === 'ArrowLeft') this.changeMonth(-1);
     if (e.key === 'ArrowRight') this.changeMonth(1);
   }
-  ngAfterViewInit(): void {
-    const todayCell = document.querySelector('.current-day');
-    todayCell?.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+
+  // ------------------------------------------------------------
+  // PROJECTS
+  // ------------------------------------------------------------
+  private loadProjects(): void {
+    this.projects = this.fallbackProjects;
+
+    this.projectService.getProjects().subscribe({
+      next: (data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          this.projects = data;
+          this.selectedProject = this.projectName = data[0].name;
+        }
+      },
+      error: (err) => console.error('Failed to load projects:', err)
+    });
   }
 
-  // src/app/home/home.component.ts  (only the method below changes)
+  // ------------------------------------------------------------
+  // MONTH SETUP
+  // ------------------------------------------------------------
+  private setInitialMonth(): void {
+    const now = new Date();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+
+    this.selectedMonthValue = `${year}-${month}`;
+    this.selectedMonth = now.toLocaleString('default', { month: 'long', year: 'numeric' });
+  }
+
+  private generateDaysForMonth(): void {
+    const [year, month] = this.selectedMonthValue.split('-').map(Number);
+    const numDays = new Date(year, month, 0).getDate();
+    this.daysInMonth = Array.from({ length: numDays }, (_, i) => i + 1);
+  }
+
   loadTimesheetData(): void {
     if (!this.selectedMonthValue) return;
 
-    const [year, month] = this.selectedMonthValue.split('-');
+    const [year, month] = this.selectedMonthValue.split('-').map(Number);
+    const monthName = new Date(year, month - 1).toLocaleString('default', { month: 'long' });
 
-    const timeframe = `${new Date(Number(year), Number(month) - 1)
-      .toLocaleString('default', { month: 'long' })}_${year}`;
-
+    const timeframe = `${monthName}_${year}`;
     const projectName = this.selectedProject || this.projectName;
 
-    console.log('Fetching timesheet for:', projectName, timeframe);
+    const cacheKey = `${projectName}:${timeframe}`;
 
-    // ✅ Always clear before loading (prevents stale UI)
-    this.timesheetData = { projectName, timeframe, employees: [] };
+    this.timesheetData.projectName = projectName;
+    this.timesheetData.timeframe = timeframe;
+    this.generateDaysForMonth();
+
+    if (this.timesheetCache.has(cacheKey)) {
+      this.timesheetData.employees = JSON.parse(
+        JSON.stringify(this.timesheetCache.get(cacheKey))
+      );
+    } else {
+      for (const emp of this.timesheetData.employees) {
+        emp.hours = emp.hours || {};
+        for (const day of this.daysInMonth) {
+          emp.hours[day] = 0;
+        }
+      }
+    }
 
     this.timesheetService.getTimesheet(projectName, timeframe).subscribe({
       next: (data) => {
-        console.log('Received timesheet response:', data);
+        const newEmpData = data?.employees ?? [];
 
-        // ✅ If data contains employees → use it
-        if (data && data.employees) {
-          this.timesheetData = data;
-        } else {
-          // ✅ Otherwise reset to an empty result
-          this.timesheetData = { projectName, timeframe, employees: [] };
-        }
-
-        // ✅ Always regenerate days so UI re-renders header correctly
-        this.generateDays(year, Number(month));
+        // ⭐ Cache it
+        this.timesheetCache.set(cacheKey, newEmpData);
+        this.timesheetData.employees = JSON.parse(JSON.stringify(newEmpData));
       },
-      error: (err) => {
-        console.error('Error fetching timesheet:', err);
 
-        // ✅ Ensure table clears on error
-        this.timesheetData = { projectName, timeframe, employees: [] };
-      }
+      error: (err) => console.error('Error fetching timesheet:', err)
     });
   }
 
 
-  // ====== Utility: Generate Days for Selected Month ======
-  private generateDays(year: string | number, month: number): void {
-    const numDays = new Date(Number(year), month, 0).getDate();
-    this.daysInMonth = Array.from({ length: numDays }, (_, i) => i + 1);
-  }
-  // Calculates total hours for an employee
-  getTotalHours(hours: Record<number, number> | undefined): number {
-    if (!hours) return 0;
-    return Object.values(hours).reduce((a, b) => a + b, 0);
-  }
-
-  private loadHolidays(year: number, month: number): void {
+  // ------------------------------------------------------------
+  // HOLIDAYS
+  // ------------------------------------------------------------
+  private loadHolidays(): void {
+    const [year, month] = this.selectedMonthValue.split('-').map(Number);
     this.holidayByDay.clear();
+
     this.holidayService.getPublicHolidays(year, this.countryCode).subscribe({
       next: (list) => {
         list.forEach(h => {
           const [y, m, d] = h.date.split('-').map(Number);
-          if (y === year && m === month) {
-            this.holidayByDay.set(d, h.name || h.localName);
-          }
+          if (y === year && m === month) this.holidayByDay.set(d, h.name || h.localName);
         });
       },
-      error: () => {
-        // silent fail or toast—your call
-        this.holidayByDay.clear();
-      }
+      error: () => this.holidayByDay.clear()
     });
+  }
+
+  // ------------------------------------------------------------
+  // EVENTS
+  // ------------------------------------------------------------
+  onMonthChange(): void {
+    if (!this.selectedMonthValue) return;
+
+    const [year, month] = this.selectedMonthValue.split('-').map(Number);
+    const monthName = new Date(year, month - 1).toLocaleString('default', { month: 'long' });
+    this.selectedMonth = `${monthName} ${year}`;
+
+    this.generateDaysForMonth();
+    this.loadTimesheetData();
+    this.loadHolidays();
+  }
+
+  onProjectChange(): void {
+    this.projectName = this.selectedProject;
+    this.loadTimesheetData();
+  }
+
+  changeMonth(offset: number): void {
+    if (!this.selectedMonthValue) return;
+
+    const [year, month] = this.selectedMonthValue.split('-').map(Number);
+    const d = new Date(year, month - 1, 1);
+
+    d.setMonth(d.getMonth() + offset);
+
+    const newMonth = String(d.getMonth() + 1).padStart(2, '0');
+    const newYear = d.getFullYear();
+
+    this.selectedMonthValue = `${newYear}-${newMonth}`;
+    this.onMonthChange();
+  }
+
+  signIn(): void {
+    this.router.navigate(['/login']);
+  }
+
+  // ------------------------------------------------------------
+  // UTILITIES
+  // ------------------------------------------------------------
+  trackByEmployee(index: number, employee: any) {
+    return employee.id ?? employee.name ?? index;
+  }
+
+  getTotalHours(hours: Record<number, number> | undefined): number {
+    return hours ? Object.values(hours).reduce((a, b) => a + b, 0) : 0;
   }
 
   isHoliday(day: number): boolean {
@@ -235,30 +221,20 @@ export class HomeComponent implements OnInit {
 
   get formattedHolidays(): { date: string; name: string }[] {
     const [year, month] = this.selectedMonthValue.split('-');
-    const monthName = new Date(Number(year), Number(month) - 1, 1)
-      .toLocaleString('default', { month: 'short' });
+    const monthName = new Date(Number(year), Number(month) - 1).toLocaleString('default', { month: 'short' });
 
-    // Convert the Map into a sorted array
-    const holidays = Array.from(this.holidayByDay.entries())
-      .sort((a, b) => a[0] - b[0]) // sort by day
-      .map(([day, name]) => ({
-        date: `${monthName} ${day}`, // e.g. "Nov 27"
-        name,
-      }));
-    return holidays;
+    return Array.from(this.holidayByDay.entries())
+      .sort(([a], [b]) => a - b)
+      .map(([day, name]) => ({ date: `${monthName} ${day}`, name }));
   }
 
-  // Is a given day (1..31) a weekend in the selected month?
   isWeekend(day: number): boolean {
-    if (!this.selectedMonthValue) return false;
     const [y, m] = this.selectedMonthValue.split('-').map(Number);
-    const dow = new Date(y, m - 1, day).getDay(); // 0=Sun ... 6=Sat
+    const dow = new Date(y, m - 1, day).getDay();
     return dow === 0 || dow === 6;
   }
 
-  // Short day-of-week label for headers (Sun, Mon, ...)
   getDowLabel(day: number): string {
-    if (!this.selectedMonthValue) return '';
     const [y, m] = this.selectedMonthValue.split('-').map(Number);
     return new Date(y, m - 1, day).toLocaleString('default', { weekday: 'short' });
   }
@@ -267,55 +243,94 @@ export class HomeComponent implements OnInit {
     const today = new Date();
     const [year, month] = this.selectedMonthValue.split('-').map(Number);
     return today.getDate() === day &&
-      today.getMonth() + 1 === month &&
-      today.getFullYear() === year;
+           today.getMonth() + 1 === month &&
+           today.getFullYear() === year;
   }
 
-  editTimesheet():void {
-    this.editingTimesheet = JSON.parse(JSON.stringify(this.timesheetData))
-    this.editing = !this.editing
-    console.log(this.editingTimesheet)
+  getGrandTotal() {
+    return this.timesheetData.employees
+      .reduce((sum, e) => sum + this.getTotalHours(e.hours), 0);
   }
 
- saveTimesheet(): void {
+  // ------------------------------------------------------------
+  // EDIT / SAVE
+  // ------------------------------------------------------------
+  editTimesheet(): void {
+    this.editingTimesheet = JSON.parse(JSON.stringify(this.timesheetData));
+    this.editing = !this.editing;
+  }
 
-   if (!this.editing) return;
+  saveTimesheet(): void {
+    if (!this.editing) return;
 
-   //Clean and validate BEFORE sending to backend
-   for (const emp of this.editingTimesheet.employees) {
-     for (const day of this.daysInMonth) {
-       const val = emp.hours[day];
+    // Clean input
+    for (const emp of this.editingTimesheet.employees) {
+      for (const day of this.daysInMonth) {
+        const val = Number(emp.hours[day]);
+        emp.hours[day] = isNaN(val) ? 0 : val;
+      }
+    }
 
-       if (val === '' || val === null || val === undefined) {
-         emp.hours[day] = 0;
-       } else {
-         emp.hours[day] = Number(val);
-         if (isNaN(emp.hours[day])) emp.hours[day] = 0;
-       }
-     }
-   }
+    this.savingService.saveProject(
+      this.timesheetData.timeframe,
+      this.editingTimesheet.employees,
+      this.timesheetData.projectName
+    ).subscribe({
+      next: (success) => {
+        if (success) {
+          this.timesheetData = JSON.parse(JSON.stringify(this.editingTimesheet));
+          this.editing = false;
+        } else {
+          console.error('Failed to save timesheet');
+        }
+      },
+      error: (error) => console.error('Error saving timesheet', error)
+    });
+  }
 
-   // Call backend using correct order
-this.savingService.saveProject(
-  this.timesheetData.timeframe,
-  this.editingTimesheet.employees,
-  this.timesheetData.projectName
-).subscribe({
-     next: (success) => {
-       if (success) {
-         // 3. Apply changes only on success
-         this.timesheetData = JSON.parse(JSON.stringify(this.editingTimesheet));
-         this.editing = false;
-         console.log("Saving successful");
-       } else {
-         console.error("Failed to save timesheet");
-       }
-     },
-     error: (error) => {
-       console.error("Error saving timesheet", error);
-       // Keep editing enabled so user doesn't lose edits
-     }
-   });
- }
+  exportToPDF(orientation: "portrait" | "landscape") {
+    const element = document.getElementById("pdf-export-container");
+    if (!element) return;
 
+    element.style.display = "block"; // temporarily show for rendering
+
+    const pdf = new jsPDF({
+      orientation: orientation,
+      unit: "pt",
+      format: "a4"
+    });
+
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+
+    html2canvas(element, {
+      scale: 3, // high resolution
+      useCORS: true,
+      scrollY: 0
+    }).then(canvas => {
+
+      const imgData = canvas.toDataURL("image/png");
+
+      // Auto scale to fit A4 page exactly
+      const canvasWidth = canvas.width;
+      const canvasHeight = canvas.height;
+
+      const ratio = Math.min(
+        pageWidth / canvasWidth,
+        pageHeight / canvasHeight
+      );
+
+      const imgWidth = canvasWidth * ratio;
+      const imgHeight = canvasHeight * ratio;
+
+      const x = (pageWidth - imgWidth) / 2;
+      const y = 20;
+
+      pdf.addImage(imgData, "PNG", x, y, imgWidth, imgHeight);
+
+      pdf.save(`Timesheet_${this.selectedMonth}_${orientation}.pdf`);
+
+      element.style.display = "none";
+    });
+  }
 }

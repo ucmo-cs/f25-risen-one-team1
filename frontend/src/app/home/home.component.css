@@ -84,76 +84,6 @@ h1 {
   padding-top: 10px;
 }
 
-.month-nav-btn {
-  width: 36px;
-  height: 36px;
-  border: none;
-  background: #f7f7f7;
-  border-radius: 50%;
-  font-size: 20px;
-  font-weight: bold;
-  color: #333;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.month-nav-btn:hover {
-  background: #FBC900;
-  color: #000;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
-  transform: translateY(-1px);
-}
-
-.month-nav-btn:active {
-  transform: scale(0.96);
-  background: #e0b800;
-}
-
-/* ==== Buttons ==== */
-.button-exportToPDF {
-  background-color: transparent;
-  color: #FBC900;
-  border: 2px solid #FBC900;
-  padding: 10px 24px;
-  font-size: 16px;
-  border-radius: 50px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-}
-
-.button-exportToPDF:hover {
-  background-color: #FBC900;
-  color: white;
-  border-color: #FBC900;
-  box-shadow: 0 0 8px rgba(251, 201, 0, 0.4);
-}
-
-.button-save {
-  background-color: #FBC900;
-  color: white;
-  font-weight: 700;
-  padding: 12px 28px;
-  font-size: 16px;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.25s ease-in-out;
-  box-shadow: 0 4px 10px rgba(251, 201, 0, 0.4);
-}
-
-.button-save:hover {
-  background-color: #ffd633;
-  transform: translateY(-3px);
-  box-shadow: 0 8px 15px rgba(251, 201, 0, 0.6);
-}
-
-.button-save:active {
-  transform: scale(0.96);
-  box-shadow: 0 2px 5px rgba(251, 201, 0, 0.4);
-}
-
 /* ==== Table Container ==== */
 .table-container {
   position: relative;
@@ -271,7 +201,7 @@ h1 {
 
 /* ==== Hover & Row Effects ==== */
 .timesheet-table tbody tr:nth-child(even) {
-  background-color: #fafafa;
+  background-color: #f7f7f7;
 }
 
 .timesheet-table tbody tr:hover {
@@ -300,6 +230,26 @@ h1 {
   font-style: italic;
   color: #777;
   background-color: #fafafa;
+}
+
+.editing-mode .timesheet-table td:not(:first-child).hour-cell {
+  padding-right: 1px;
+  padding-left: 1px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+
+}
+
+.edit-input {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 0;
+  box-sizing: border-box;
+  font-size: 12px;
 }
 
 .holiday-cell {
@@ -493,4 +443,144 @@ input[type="month"]:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0px 1000px white inset !important;
   box-shadow: 0 0 0px 1000px white inset !important;
   background-color: white !important;
+}
+
+
+/* == Sheet container == */
+.pdf-sheet {
+  width: 100%;
+  padding: 20px 40px;
+  font-family: 'Montserrat';
+  box-sizing: border-box;
+}
+
+/* == Logo & Header == */
+.pdf-logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.pdf-logo {
+  height: 240px;
+  width: auto;
+}
+
+.pdf-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 6px;
+  margin-bottom: 4px;
+}
+
+.pdf-month {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 14px;
+}
+
+/* == Table == */
+.pdf-table-wrapper {
+  display: flex;
+  justify-content: center;
+  transform: scale(0.9);
+  transform-origin: top center;
+  margin-bottom: 20px;
+}
+
+/* FIX: Collapse all borders */
+.pdf-table {
+  width: 100%;
+  border-collapse: collapse !important;
+  border: 1px solid #000 !important;
+  table-layout: fixed;
+  font-size: 8px;
+}
+
+/* FIX: One border for all cells */
+.pdf-table th,
+.pdf-table td {
+  border: 0.5px solid #000 !important;
+  padding: 4px 0;
+  height: 28px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Header styling */
+.pdf-table thead th {
+  background-color: #828282 !important;
+  color: #fff !important;
+  font-weight: 700;
+}
+
+/* First column */
+.pdf-table th:first-child,
+.pdf-table td:first-child {
+  background-color: #fff;
+  width: 80px;
+  text-align: left;
+  padding-left: 8px;
+  font-weight: 600;
+}
+
+/* Day columns */
+.pdf-table th:not(:first-child):not(:last-child),
+.pdf-table td:not(:first-child):not(:last-child) {
+  width: 18px;
+}
+
+/* Total column */
+.pdf-table th:last-child,
+.pdf-table td:last-child {
+  width: 30px;
+  font-weight: bold;
+}
+
+/* Alternating rows */
+.pdf-table tbody tr:nth-child(even) td {
+  background-color: #ebebeb;
+}
+
+/* Weekend cells */
+.pdf-weekend-cell {
+  background-color: #c9c9c9 !important;
+  color: #444 !important;
+}
+
+
+/* == Signatures == */
+.pdf-signatures {
+  display: flex;
+  justify-content: space-between;
+  gap: 60px;
+  margin-top: 30px;
+  padding: 0 10px;
+}
+
+.sig-box {
+  flex: 1;
+  min-width: 140px;
+}
+
+.sig-box label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.sig-line {
+  border-bottom: 1.5px solid #000;
+  height: 28px;
+  border-radius: 1px;
+}
+
+.footer-note {
+  text-align: center;
+  font-size: 13px;
+  color: #999;
+  margin-top: 40px;
+  opacity: 0.7;
 }
