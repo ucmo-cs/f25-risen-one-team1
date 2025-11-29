@@ -1,28 +1,45 @@
-<div class="selector-wrapper">
-  <p class="label">Select Month</p>
+<div class="month-card">
 
-  <!-- Previous Month Button -->
-  <app-button
-    variant="circle"
-    (click)="navigate(-1)"
-    [disabled]="editing">
-    ‹
-  </app-button>
 
   <!-- Month Input -->
-  <input
-    type="month"
-    class="month-input"
-    [disabled]="editing"
-    [(ngModel)]="selectedMonthValue"
-    (ngModelChange)="onMonthInputChange($event)"
-  />
+  <mat-form-field appearance="outline" class="month-field">
+    <mat-label>Select Month</mat-label>
 
-  <!-- Next Month Button -->
-  <app-button
-    variant="circle"
-    (click)="navigate(1)"
-    [disabled]="editing">
-    ›
-  </app-button>
+<!--     Previous Month Button-->
+    <ng-container matPrefix>
+      <button mat-icon-button class="nav-btn" (click)="navigate(-1)" [disabled]="editing">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+    </ng-container>
+
+    <input
+      style="align"
+      matInput
+      [matDatepicker]="picker"
+      [value]="displayDate"
+      [disabled]="editing"
+      readonly
+    />
+
+    <!-- RIGHT BUTTON INSIDE THE FIELD -->
+    <ng-container matSuffix>
+      <button mat-icon-button class="nav-btn" (click)="navigate(1)" [disabled]="editing">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </ng-container>
+
+    <mat-datepicker-toggle
+      matSuffix
+      [for]="picker"
+    ></mat-datepicker-toggle>
+
+    <mat-datepicker
+      #picker
+      startView="year"
+      [startAt]="displayDate"
+      (yearSelected)="chosenYearHandler($event)"
+      (monthSelected)="chosenMonthHandler($event, picker)"
+      panelClass="month-picker">
+    </mat-datepicker>
+  </mat-form-field>
 </div>

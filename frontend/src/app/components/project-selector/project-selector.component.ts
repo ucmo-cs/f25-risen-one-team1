@@ -10,6 +10,7 @@ interface Project {
   styleUrls: ['./project-selector.component.css']
 })
 export class ProjectSelectorComponent {
+
   @Input() projects: Project[] = [];
   @Input() selectedProject!: string;
   @Input() editing: boolean = false;

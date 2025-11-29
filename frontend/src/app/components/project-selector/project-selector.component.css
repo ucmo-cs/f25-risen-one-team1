@@ -1,20 +1,74 @@
-.selector-wrapper {
+.project-card {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
-.label {
+.project-label {
   margin: 0;
   font-weight: 600;
+  color: #333;
+}
+
+.select-wrapper {
+  position: relative;
 }
 
 .project-select {
   min-width: 220px;
   height: 36px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 4px 8px;
-  font-family: 'Montserrat';
+  padding: 6px 10px;
+
+  font-family: 'Montserrat', sans-serif;
   font-size: 14px;
+  font-weight: 500;
+
+  /* Theme colors */
+  border: 1.5px solid #d5d5d5;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #333;
+
+  /* Clean transitions */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+
+  /* Prevent flicker (forces early paint) */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* Gold focus style */
+.project-select:focus {
+  border-color: #FBC900;
+  box-shadow: 0 0 0 3px rgba(251, 201, 0, 0.25);
+  outline: none;
+}
+
+/* Disabled state */
+.project-select:disabled {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+
+/* Custom dropdown arrow (themed gold) */
+.select-wrapper::after {
+  content: '▼';
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  pointer-events: none;
+
+  font-size: 10px;
+  color: #FBC900;
+  font-weight: 700;
+}
+
+/* Hover effect */
+.project-select:hover:not(:disabled) {
+  border-color: #FBC900;
 }

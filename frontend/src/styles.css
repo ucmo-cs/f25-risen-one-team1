@@ -89,3 +89,8 @@ tr.expanded {
 .mat-sort-header-container {
   justify-content: center;
 }
+
+.month-picker mat-month-view {
+  opacity: 0;
+  pointer-events: none;
+}

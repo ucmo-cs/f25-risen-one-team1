@@ -1,23 +1,36 @@
- .selector-wrapper {
-   display: flex;
-   align-items: center;
-   gap: 14px;
-   flex-wrap: wrap;
- }
+.selector-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
- .label {
-   margin: 0;
-   font-weight: 600;
-   margin-right: 6px;
- }
+mat-form-field {
+  min-width: 220px;
+  font-family: 'Montserrat';
+}
 
- .month-input {
-   min-width: 200px;
-   height: 36px;
-   border: 1px solid #ccc;
-   border-radius: 4px;
-   padding: 4px 8px;
-   text-align: center;
-   font-family: 'Montserrat';
-   font-size: 14px;
- }
+.month-field .mat-mdc-input-element {
+  text-align: center !important;
+}
+
+/* Prevent Angular Material from shifting the label when centered */
+.month-field .mdc-text-field--outlined .mdc-floating-label {
+  left: 50% !important;
+  transform: translateX(-50%) translateY(-100%) scale(0.75) !important;
+}
+
+span .mat-icon-button {
+  padding: 10px;
+}
+
+.month-field .mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
+}
+
+::ng-deep .month-picker .mat-calendar-period-button {
+  display: none !important;
+}
+
+::ng-deep .month-card .mat-mdc-focus-indicator::after {
+  display: none !important;
+}
