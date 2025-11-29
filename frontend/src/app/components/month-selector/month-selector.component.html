@@ -1,0 +1,28 @@
+<div class="selector-wrapper">
+  <p class="label">Select Month</p>
+
+  <!-- Previous Month Button -->
+  <app-button
+    variant="circle"
+    (click)="navigate(-1)"
+    [disabled]="editing">
+    ‹
+  </app-button>
+
+  <!-- Month Input -->
+  <input
+    type="month"
+    class="month-input"
+    [disabled]="editing"
+    [(ngModel)]="selectedMonthValue"
+    (ngModelChange)="onMonthInputChange($event)"
+  />
+
+  <!-- Next Month Button -->
+  <app-button
+    variant="circle"
+    (click)="navigate(1)"
+    [disabled]="editing">
+    ›
+  </app-button>
+</div>

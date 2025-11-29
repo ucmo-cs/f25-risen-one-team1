@@ -1,0 +1,14 @@
+<div class="selector-wrapper">
+  <p class="label">Projects</p>
+
+  <select
+    class="project-select"
+    [disabled]="editing"
+    [(ngModel)]="selectedProject"
+    (ngModelChange)="onChange($event)"
+  >
+    <option *ngFor="let p of projects" [value]="p.name">
+      {{ p.name }}
+    </option>
+  </select>
+</div>

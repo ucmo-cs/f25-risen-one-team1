@@ -1,0 +1,23 @@
+ .selector-wrapper {
+   display: flex;
+   align-items: center;
+   gap: 14px;
+   flex-wrap: wrap;
+ }
+
+ .label {
+   margin: 0;
+   font-weight: 600;
+   margin-right: 6px;
+ }
+
+ .month-input {
+   min-width: 200px;
+   height: 36px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   padding: 4px 8px;
+   text-align: center;
+   font-family: 'Montserrat';
+   font-size: 14px;
+ }

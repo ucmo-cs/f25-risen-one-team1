@@ -1,0 +1,146 @@
+.pdf-sheet {
+  width: 100%;
+    min-height: 1000px;
+
+  /*padding: 20px 40px;*/
+  font-family: 'Montserrat';
+  box-sizing: border-box;
+}
+
+/* Logo */
+.pdf-logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.pdf-logo {
+  height: 240px;
+  width: auto;
+}
+
+/* Title */
+.pdf-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 6px;
+  margin-bottom: 4px;
+}
+
+.pdf-month {
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 14px;
+}
+
+/* Table Wrapper */
+.pdf-table-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  overflow: hidden;
+  width: 100%;
+  transform: scale(1);
+}
+
+
+/* Table */
+.pdf-table {
+  /*width: 100%;*/
+  border-collapse: collapse !important;
+  border: 1px solid #000 !important;
+  table-layout: fixed;
+  font-size: 8px;
+}
+
+.pdf-table th,
+.pdf-table td {
+  border: 0.5px solid #000 !important;
+  padding: 4px 0;
+  background-color: #fff;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.pdf-table th {
+  background-color: #828282 !important;
+  color: #fff;
+  font-weight: 700;
+}
+
+/* First Column */
+.pdf-table th:first-child,
+.pdf-table td:first-child {
+  background-color: #fff;
+  width: 75px;
+  text-align: left;
+  padding-left: 8px;
+  font-weight: 600;
+  overflow: hidden;
+}
+
+/* Day columns */
+.pdf-table th:not(:first-child):not(:last-child),
+.pdf-table td:not(:first-child):not(:last-child) {
+  height: 18px;
+  width: 16px;
+}
+
+/* Total column */
+.pdf-table th:last-child,
+.pdf-table td:last-child {
+  width: 26px;
+  font-weight: bold;
+}
+
+/* Alternating rows */
+.pdf-table tbody tr:nth-child(even) td {
+  background-color: #ebebeb;
+}
+
+/* Weekend Cells */
+.pdf-weekend-cell {
+  background-color: #c9c9c9 !important;
+  color: #444 !important;
+}
+
+.pdf-holiday-cell {
+  background-color: #ffd4d4 !important;
+  color: #600 !important;
+  font-weight: bold;
+}
+
+/* Footer Note */
+.pdf-footer {
+  text-align: center;
+  margin-top: 400px;
+  margin-bottom: 0px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* The line containing all footer items */
+.footer-line {
+  font-size: 11px;
+  color: #555;
+  opacity: 0.9;
+  letter-spacing: 0.2px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px; /* space between spans */
+}
+
+/* Vertical bar separator */
+.footer-line .separator {
+  color: #aaa;
+  font-weight: 400;
+}
+
+/* Second line */
+.footer-generated {
+  font-size: 10px;
+  color: #999;
+  opacity: 0.75;
+  margin-top: 8px;
+}

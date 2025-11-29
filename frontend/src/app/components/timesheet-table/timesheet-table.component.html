@@ -1,0 +1,46 @@
+<div class="table-container" [ngClass]="{ 'editing-mode': editing }">
+  <table class="timesheet-table">
+    <thead>
+    <tr>
+      <th>Employee</th>
+      <th *ngFor="let day of daysInMonth" [ngClass]="{ 'weekend-col': isWeekend(day) }" [title]="getDowLabel(day)">
+        <div class="day-header">
+          <div class="day-number">{{ day }}</div>
+          <div class="day-dow">{{ getDowLabel(day) }}</div>
+        </div>
+      </th>
+      <th>Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let employee of (editing ? editingTimesheet.employees : timesheetData.employees); let i = index">
+      <td>{{ employee.name }}</td>
+      <td *ngFor="let day of daysInMonth" class="hour-cell" [ngClass]="{
+          'holiday-cell': isHoliday(day),
+          'weekend-cell': !isHoliday(day) && isWeekend(day),
+          'current-day': isToday(day)
+        }"
+      >
+        <!-- If editing → show input -->
+        <input
+          *ngIf="editing && !isHoliday(day)"
+          type="number"
+          class="edit-input"
+          [(ngModel)]="editingTimesheet.employees[i].hours[day]"
+        />
+
+        <!-- READ-ONLY on holidays -->
+        <span *ngIf="editing && isHoliday(day)" style="cursor:not-allowed;opacity:0.6;">
+          {{ editingTimesheet.employees[i].hours[day] || '' }}
+        </span>
+
+        <!-- NORMAL VIEW MODE -->
+        <span *ngIf="!editing">
+          {{ employee.hours[day] || '' }}
+        </span>
+      </td>
+      <td>{{ getTotalHours(employee.hours) }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

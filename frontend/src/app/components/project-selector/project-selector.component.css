@@ -1,0 +1,20 @@
+.selector-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.label {
+  margin: 0;
+  font-weight: 600;
+}
+
+.project-select {
+  min-width: 220px;
+  height: 36px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-family: 'Montserrat';
+  font-size: 14px;
+}

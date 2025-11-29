@@ -6,6 +6,12 @@ import { AppHeaderComponent } from './components/app-header/app-header.component
 import { AppFooterComponent } from './components/app-footer/app-footer.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { ButtonComponent } from './components/button/button.component';
+import { TimesheetTableComponent } from './components/timesheet-table/timesheet-table.component';
+import { MonthSelectorComponent } from './components/month-selector/month-selector.component';
+import { ProjectSelectorComponent } from './components/project-selector/project-selector.component';
+import { HolidayEventsComponent } from './components/holiday-events/holiday-events.component';
+import { SignatureSectionComponent } from './components/signature-section/signature-section.component';
+import { PdfTimesheetComponent } from './components/pdf-timesheet/pdf-timesheet.component';
 
 
 import { CommonModule } from '@angular/common';
@@ -68,6 +74,12 @@ import { LoginComponent } from './login/login.component';
       SidenavComponent,
       LoginComponent,
       ButtonComponent,
+      TimesheetTableComponent,
+      ProjectSelectorComponent,
+      MonthSelectorComponent,
+      HolidayEventsComponent,
+      SignatureSectionComponent,
+      PdfTimesheetComponent,
       AppComponent
     ],
     exports: [],
