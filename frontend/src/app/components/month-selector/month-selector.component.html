@@ -1,8 +1,10 @@
 <div class="month-card">
-
-
   <!-- Month Input -->
-  <mat-form-field appearance="outline" class="month-field">
+  <mat-form-field
+    appearance="outline"
+    class="month-field"
+    [class.popup-open]="isPickerOpen"
+  >
     <mat-label>Select Month</mat-label>
 
 <!--     Previous Month Button-->
@@ -37,6 +39,8 @@
       #picker
       startView="year"
       [startAt]="displayDate"
+      (opened)="onPickerOpened()"
+      (closed)="onPickerClosed()"
       (yearSelected)="chosenYearHandler($event)"
       (monthSelected)="chosenMonthHandler($event, picker)"
       panelClass="month-picker">

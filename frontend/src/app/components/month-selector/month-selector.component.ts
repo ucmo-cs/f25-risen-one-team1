@@ -108,4 +108,15 @@ export class MonthSelectorComponent implements OnChanges {
   navigate(amount: number) {
     this.navigateMonth.emit(amount);
   }
+
+  isPickerOpen = false;
+
+  onPickerOpened() {
+    this.isPickerOpen = true;
+  }
+
+  onPickerClosed() {
+    this.isPickerOpen = false;
+  }
+
 }

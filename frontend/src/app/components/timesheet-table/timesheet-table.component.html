@@ -15,11 +15,14 @@
     <tbody>
     <tr *ngFor="let employee of (editing ? editingTimesheet.employees : timesheetData.employees); let i = index">
       <td>{{ employee.name }}</td>
-      <td *ngFor="let day of daysInMonth" class="hour-cell" [ngClass]="{
+      <td *ngFor="let day of daysInMonth"
+          class="hour-cell"
+          [ngClass]="{
           'holiday-cell': isHoliday(day),
           'weekend-cell': !isHoliday(day) && isWeekend(day),
           'current-day': isToday(day)
         }"
+          [title]="isHoliday(day) ? getHolidayName(day) : ''"
       >
         <!-- If editing → show input -->
         <input

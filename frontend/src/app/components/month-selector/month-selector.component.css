@@ -34,3 +34,96 @@ span .mat-icon-button {
 ::ng-deep .month-card .mat-mdc-focus-indicator::after {
   display: none !important;
 }
+
+/* Layout for the label + field + outer chevrons wrapper */
+.selector-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Form field base */
+.month-card mat-form-field,
+.month-field {
+  min-width: 260px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Rounded, light “pill” look */
+.month-field .mdc-text-field--outlined {
+  border-radius: 999px;
+  background: #ffffff;
+  border-color: #e0e0e0;
+}
+
+/* Outline color on focus = GOLD */
+.month-field .mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__leading,
+.month-field .mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__notch,
+.month-field .mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__trailing {
+  border-color: #FBC900 !important;
+}
+
+/* Center the text (November 2025) */
+.month-field .mat-mdc-input-element {
+  text-align: center !important;
+  font-size: 16px;
+}
+
+/* Center the floating label over the pill */
+.month-field .mdc-text-field--outlined .mdc-floating-label {
+  left: 50% !important;
+  transform: translateX(-50%) translateY(-100%) scale(0.75) !important;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Remove extra helper / error line */
+.month-field .mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
+}
+
+/* ===== Prefix / suffix chevron buttons INSIDE the field ===== */
+
+.nav-btn.mat-mdc-icon-button {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  padding: 0;
+}
+
+.nav-btn.mat-mdc-icon-button:hover:not(:disabled) {
+  color: #000;
+  }
+
+.nav-btn.mat-mdc-icon-button:disabled {
+  opacity: 0.4;
+  box-shadow: none;
+}
+
+/* Calendar toggle icon – match circle styling but subtle */
+.month-field .mat-datepicker-toggle .mat-mdc-icon-button {
+  border-radius: 50%;
+  background: #f7f7f7;
+  width: 36px;
+  height: 36px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  transition: all 0.2s ease;
+}
+
+.month-field .mat-datepicker-toggle .mat-mdc-icon-button:hover {
+  background: #FBC900;
+}
+
+.month-field .mat-datepicker-toggle .mat-datepicker-toggle-default-icon {
+  color: #555;
+}
+
+/* Kill the pressed/focus ring look on the toggle */
+.month-field .mat-datepicker-toggle .mat-mdc-focus-indicator::after {
+  display: none !important;
+}
+
+/* Optional: remove generic Material focus halo inside the month card */
+::ng-deep .month-card .mat-mdc-focus-indicator::after {
+  display: none !important;
+}
+

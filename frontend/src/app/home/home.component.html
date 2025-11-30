@@ -11,7 +11,7 @@
   <div class="box-2">
     <div class="box-2-inside" style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;">
       <!-- Left: selectors -->
-      <div style="display:flex;align-items:center;gap:28px;flex-wrap:wrap; margin-top:22px;">
+      <div style="display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
         <app-project-selector
           [projects]="projects"
           [selectedProject]="selectedProject"
@@ -61,7 +61,7 @@
       [isToday]="isToday.bind(this)"
       [getDowLabel]="getDowLabel.bind(this)"
       [getTotalHours]="getTotalHours.bind(this)"
-
+      [getHolidayName]="getHolidayName.bind(this)"
       (updateHours)="saveProgress()"
     ></app-timesheet-table>
 

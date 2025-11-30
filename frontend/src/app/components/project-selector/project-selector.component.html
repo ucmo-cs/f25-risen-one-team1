@@ -6,6 +6,7 @@
       [disabled]="editing"
       [(value)]="selectedProject"
       (valueChange)="onChange($event)"
+      panelClass="project-select-panel"
     >
       <mat-option *ngFor="let p of projects" [value]="p.name">
         {{ p.name }}
