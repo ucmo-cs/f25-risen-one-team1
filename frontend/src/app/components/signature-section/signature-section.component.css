@@ -1,0 +1,68 @@
+.signature-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 80px;
+  justify-content: flex-start;
+  margin-top: 40px;
+  padding: 10px 15px;
+}
+
+/* Individual signature boxes */
+.signature-box {
+  display: flex;
+  flex-direction: column;
+  min-width: 220px;
+}
+
+/* Label styling */
+.signature-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+/* The signature line itself */
+.signature-line {
+  border-bottom: 1.5px solid #999;
+  height: 32px;
+  border-radius: 2px;
+  background: linear-gradient(to bottom, #fff 60%, #fdfdfd 100%);
+  transition: border-color 0.2s ease;
+}
+
+.signature-line:hover {
+  border-color: #FBC900; /* subtle gold accent */
+}
+
+
+/*PDF MODE (Compact Version)*/
+.pdf-mode {
+  display: flex !important;
+  justify-content: center !important;
+  gap: 40px !important;
+  margin-top: 40px !important;
+  padding: 0 10px !important;
+}
+
+.pdf-mode .signature-box {
+  flex: 0 0 140px !important;
+  min-width: 120px !important;
+  max-width: 150px !important;
+  text-align: center !important;
+}
+
+.pdf-mode .signature-label {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  margin-bottom: 4px !important;
+}
+
+.pdf-mode .signature-line {
+  border-bottom: 1px solid #000 !important;
+  height: 18px !important;
+  margin: 0 auto !important;
+  width: 100% !important;
+  border-radius: 1px !important;
+  transition: none !important;
+}

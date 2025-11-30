@@ -54,6 +54,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.generateDaysForMonth();
     this.loadTimesheetData();
     this.loadHolidays();
+    const auto = localStorage.getItem('autosave_timesheet');
+    if (auto) {
+      this.editingTimesheet = JSON.parse(auto);
+    }
   }
 
   ngAfterViewInit(): void {
@@ -164,10 +168,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
   // ------------------------------------------------------------
   // EVENTS
   // ------------------------------------------------------------
-  onMonthChange(): void {
-    if (!this.selectedMonthValue) return;
+  onMonthChange(newValue: string): void {
+    if (!newValue) return;
 
-    const [year, month] = this.selectedMonthValue.split('-').map(Number);
+    this.selectedMonthValue = newValue;
+
+    const [year, month] = newValue.split('-').map(Number);
     const monthName = new Date(year, month - 1).toLocaleString('default', { month: 'long' });
     this.selectedMonth = `${monthName} ${year}`;
 
@@ -176,8 +182,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.loadHolidays();
   }
 
-  onProjectChange(): void {
-    this.projectName = this.selectedProject;
+
+  onProjectChange(projectName: string): void {
+    this.selectedProject = projectName;
+    this.projectName = projectName;
     this.loadTimesheetData();
   }
 
@@ -192,9 +200,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
     const newMonth = String(d.getMonth() + 1).padStart(2, '0');
     const newYear = d.getFullYear();
 
-    this.selectedMonthValue = `${newYear}-${newMonth}`;
-    this.onMonthChange();
+    const newValue = `${newYear}-${newMonth}`;
+    this.onMonthChange(newValue);
   }
+
 
   signIn(): void {
     this.router.navigate(['/login']);
@@ -258,6 +267,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
   editTimesheet(): void {
     this.editingTimesheet = JSON.parse(JSON.stringify(this.timesheetData));
     this.editing = !this.editing;
+  }
+
+  saveProgress(): void {
+    localStorage.setItem(
+      'autosave_timesheet',
+      JSON.stringify(this.editingTimesheet)
+    );
   }
 
   saveTimesheet(): void {

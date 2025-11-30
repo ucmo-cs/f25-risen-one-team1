@@ -1,0 +1,66 @@
+.events-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.events-list {
+  flex: 1;
+  min-width: 250px;
+}
+
+.events-title {
+  font-weight: bold;
+}
+
+.events-ul {
+  margin-top: 10px;
+  list-style-type: disc;
+  padding-left: 24px;
+}
+
+.no-holidays {
+  margin: 6px 0 0 0;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-box {
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+/* Weekend legend style (matches your table design) */
+.weekend-box {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(0, 0, 0, 0.04) 0,
+    rgba(0, 0, 0, 0.04) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+}
+
+/* Holiday legend style */
+.holiday-box {
+  background: #ffe6e6;
+  border: 1px solid #f3caca;
+}

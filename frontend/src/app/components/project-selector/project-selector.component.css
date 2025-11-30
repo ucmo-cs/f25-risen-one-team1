@@ -1,0 +1,61 @@
+.project-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.label {
+  margin: 0;
+  font-weight: 600;
+}
+
+.project-select {
+  min-width: 220px;
+  height: 36px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-family: 'Montserrat';
+  font-size: 14px;
+}
+
+/* Arrow-down icon inside the select */
+.project-field .mat-mdc-select-arrow svg {
+  fill: #000 !important; /* black */
+}
+
+/* Text inside the field */
+.project-field .mat-select-value-text {
+  color: #000 !important;
+  font-weight: 600; /* consistent with your Month Selector */
+}
+
+/* Selected option in dropdown = BLACK + BOLD */
+.project-select-panel .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) {
+  color: #000 !important;
+  font-weight: 700 !important;
+}
+
+/* Checkmark icon color = BLACK */
+.project-select-panel .mat-pseudo-checkbox.mdc-checkbox__native-control,
+.project-select-panel .mat-pseudo-checkbox-checked {
+  color: #000 !important;
+  border-color: #000 !important;
+}
+
+/* Checkmark SVG fix (Material v16+) */
+.project-select-panel .mat-mdc-option .mat-mdc-option-checkmark svg {
+  fill: #000 !important;
+}
+
+/* Regular option text = black */
+.project-select-panel .mat-mdc-option {
+  color: #000 !important;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Hover background remains light grey */
+.project-select-panel .mat-mdc-option:hover:not(.mdc-list-item--disabled) {
+  background-color: rgba(0,0,0,0.06) !important;
+}
+

@@ -1,0 +1,16 @@
+<div class="selector-wrapper">
+  <mat-form-field appearance="outline" class="project-field" floatLabel="always">
+    <mat-label>Projects</mat-label>
+
+    <mat-select
+      [disabled]="editing"
+      [(value)]="selectedProject"
+      (valueChange)="onChange($event)"
+      panelClass="project-select-panel"
+    >
+      <mat-option *ngFor="let p of projects" [value]="p.name">
+        {{ p.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

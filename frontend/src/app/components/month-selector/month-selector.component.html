@@ -1,0 +1,49 @@
+<div class="month-card">
+  <!-- Month Input -->
+  <mat-form-field
+    appearance="outline"
+    class="month-field"
+    [class.popup-open]="isPickerOpen"
+  >
+    <mat-label>Select Month</mat-label>
+
+<!--     Previous Month Button-->
+    <ng-container matPrefix>
+      <button mat-icon-button class="nav-btn" (click)="navigate(-1)" [disabled]="editing">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+    </ng-container>
+
+    <input
+      style="align"
+      matInput
+      [matDatepicker]="picker"
+      [value]="displayDate"
+      [disabled]="editing"
+      readonly
+    />
+
+    <!-- RIGHT BUTTON INSIDE THE FIELD -->
+    <ng-container matSuffix>
+      <button mat-icon-button class="nav-btn" (click)="navigate(1)" [disabled]="editing">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </ng-container>
+
+    <mat-datepicker-toggle
+      matSuffix
+      [for]="picker"
+    ></mat-datepicker-toggle>
+
+    <mat-datepicker
+      #picker
+      startView="year"
+      [startAt]="displayDate"
+      (opened)="onPickerOpened()"
+      (closed)="onPickerClosed()"
+      (yearSelected)="chosenYearHandler($event)"
+      (monthSelected)="chosenMonthHandler($event, picker)"
+      panelClass="month-picker">
+    </mat-datepicker>
+  </mat-form-field>
+</div>

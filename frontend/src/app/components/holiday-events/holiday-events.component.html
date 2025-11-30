@@ -1,0 +1,28 @@
+<div class="events-container">
+
+  <!-- Events List -->
+  <div class="events-list">
+    <span class="events-title">Events This Month:</span>
+
+    <ul *ngIf="holidays.length > 0; else noHolidays" class="events-ul">
+      <li *ngFor="let h of holidays">
+        <strong>{{ h.date }}</strong> — {{ h.name }}
+      </li>
+    </ul>
+
+    <ng-template #noHolidays>
+      <p class="no-holidays">No holidays this month 🎉</p>
+    </ng-template>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <div class="legend-item">
+      <span class="legend-box weekend-box"></span> Closed (Weekends)
+    </div>
+
+    <div class="legend-item">
+      <span class="legend-box holiday-box"></span> Holiday
+    </div>
+  </div>
+</div>

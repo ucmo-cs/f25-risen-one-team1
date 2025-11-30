@@ -12,45 +12,25 @@
     <div class="box-2-inside" style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;">
       <!-- Left: selectors -->
       <div style="display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
-        <div class="selectorBox">
-          <p style="margin-right:6px;">Projects</p>
-          <select [(ngModel)]="selectedProject"
-                  (change)="onProjectChange()"
-                  [disabled]="editing"
-                  style="min-width:220px;height:36px;border:1px solid #ccc;border-radius:4px;padding:4px 8px;">
-            <option *ngFor="let p of projects" [value]="p.name">{{ p.name }}</option>
-          </select>
-        </div>
+        <app-project-selector
+          [projects]="projects"
+          [selectedProject]="selectedProject"
+          [editing]="editing"
+          (projectChange)="onProjectChange($event)"
+        ></app-project-selector>
 
-        <!-- Month Selector -->
-        <div class="selectorBox" style="display:flex;align-items:center;gap:10px;">
-          <p style="margin:0 6px 0 0;">Select Month</p>
 
-          <!-- Month Navigation Buttons -->
-          <app-button variant="circle" (click)="changeMonth(-1)" [disabled]="editing">
-            ‹
-          </app-button>
+        <app-month-selector
+          [selectedMonthValue]="selectedMonthValue"
+          [editing]="editing"
+          (monthChange)="onMonthChange($event)"
+          (navigateMonth)="changeMonth($event)"
+        >
+        </app-month-selector>
 
-          <!-- Angular two-way binding for selected month -->
-          <input type="month"
-                 [(ngModel)]="selectedMonthValue"
-                 (change)="onMonthChange()"
-                 [disabled]="editing"
-                 style="min-width:200px;
-                height:36px;
-                border:1px solid #ccc;
-                border-radius:4px;
-                padding:4px 8px;
-                text-align:center;">
-
-          <app-button variant="circle" (click)="changeMonth(1)" [disabled]="editing">
-            ›
-          </app-button>
-        </div>
       </div>
       <!-- Right: actions -->
       <div style="display:flex;align-items:center;gap:12px;margin-left:auto;">
-        <!--Will eventually replace with components-->
         <app-button variant="outline" (click)="exportToPDF('portrait')" [disabled]="editing">
           Export PDF
         </app-button>
@@ -68,172 +48,44 @@
   </div>
 
   <!-- Time Sheet Table Selection -->
-  <div class="box-3" [ngClass]="{ 'editing-mode': editing }">
-    <div class="table-container">
-      <table class="timesheet-table">
-        <thead>
-        <tr>
-          <th style="text">Employee</th>
-          <!-- Generate Days based on selected Month-->
-          <th
-            *ngFor="let day of daysInMonth"
-            [ngClass]="{ 'weekend-col': isWeekend(day) }"
-            [title]="getDowLabel(day)"
-          >
-            <div class="day-header">
-              <div class="day-number">{{ day }}</div>
-              <div class="day-dow">{{ getDowLabel(day) }}</div>
-            </div>
-          </th>
-          <th>Total</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let employee of (editing ? editingTimesheet.employees : timesheetData.employees); let i = index">
+  <div class="box-3">
+    <app-timesheet-table
+      [daysInMonth]="daysInMonth"
+      [timesheetData]="timesheetData"
+      [editing]="editing"
+      [editingTimesheet]="editingTimesheet"
+      [formattedHolidays]="formattedHolidays"
 
-        <td>{{ employee.name }}</td>
-          <td
-            *ngFor="let day of daysInMonth"
-            class="hour-cell"
-            [ngClass]="{
-            'holiday-cell': isHoliday(day),
-            'weekend-cell': !isHoliday(day) && isWeekend(day),
-            'current-day': isToday(day)
-          }"
-          >
-            <!-- If editing → show input -->
-            <input
-              *ngIf="editing && !isHoliday(day)"
-              type="number"
-              class="edit-input"
-              [(ngModel)]="editingTimesheet.employees[i].hours[day]"
-            />
+      [isHoliday]="isHoliday.bind(this)"
+      [isWeekend]="isWeekend.bind(this)"
+      [isToday]="isToday.bind(this)"
+      [getDowLabel]="getDowLabel.bind(this)"
+      [getTotalHours]="getTotalHours.bind(this)"
+      [getHolidayName]="getHolidayName.bind(this)"
+      (updateHours)="saveProgress()"
+    ></app-timesheet-table>
 
-            <!-- READ-ONLY on holidays -->
-            <span *ngIf="editing && isHoliday(day)" style="cursor:not-allowed;opacity:0.6;">
-  {{ editingTimesheet.employees[i].hours[day] || '' }}
-</span>
-
-            <!-- NORMAL VIEW MODE -->
-            <span *ngIf="!editing">
-  {{ employee.hours[day] || '' }}
-</span>
-          </td>
-
-          <td>{{ getTotalHours(employee.hours) }}</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="events-list"
-         style="margin-top:20px;padding:10px;display:flex;justify-content:space-between;flex-wrap:wrap;align-items:flex-start;">
-
-      <!-- Left: Events list -->
-      <div style="flex: 1; min-width: 250px;">
-        <span style="font-weight: bold;">Events This Month:</span>
-
-        <ul *ngIf="formattedHolidays.length > 0; else noHolidays"
-            style="margin-top: 10px; list-style-type: disc; padding-left: 24px;">
-          <li *ngFor="let h of formattedHolidays">
-            <strong>{{ h.date }}</strong> — {{ h.name }}
-          </li>
-        </ul>
-
-        <ng-template #noHolidays>
-          <p style="margin: 6px 0 0 0;">No holidays this month 🎉</p>
-        </ng-template>
-      </div>
-
-      <div class="legend-container"
-           style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 10px;">
-        <div class="legend" style="display: flex; align-items: center; gap: 16px;">
-          <span class="weekendLegend"></span> Closed (Weekends)
-          <span class="holidayLegend"></span> Holiday
-        </div>
-      </div>
-    </div>
+    <app-holiday-events
+      [holidays]="formattedHolidays">
+    </app-holiday-events>
   </div>
 
   <div class="box-4" style="border-top:none;padding-top:10px;">
-    <div class="signature-section">
-      <div class="signature-box">
-        <label class="signature-label">Manager Signature</label>
-        <div class="signature-line"></div>
-      </div>
+    <app-signature-section
+      managerLabel="Manager Signature">
+    </app-signature-section>
 
-      <div class="signature-box">
-        <label class="signature-label">Date</label>
-        <div class="signature-line"></div>
-      </div>
-    </div>
   </div>
 </div>
 </html>
 <div id="pdf-export-container" style="display:none;">
-  <div class="pdf-sheet">
-
-    <!-- Logo -->
-    <div class="pdf-logo-container">
-      <img src="assets/RisenOneBlack.png" class="pdf-logo" />
-    </div>
-
-    <!-- Title -->
-    <h1 class="pdf-title">Monthly Time Sheet</h1>
-    <h3 class="pdf-month">{{ selectedMonth }}</h3>
-
-    <!-- Scaled and centered table -->
-    <div class="pdf-table-wrapper">
-      <table class="pdf-table">
-        <colgroup>
-          <col class="col-employee">
-          <col *ngFor="let day of daysInMonth" class="col-day">
-          <col class="col-total">
-        </colgroup>
-
-        <thead>
-        <tr>
-          <th>Employee</th>
-          <th
-            *ngFor="let day of daysInMonth"
-            [ngClass]="{ 'pdf-weekend-col': isWeekend(day) }"
-          >
-            {{ day }}
-          </th>
-          <th>Total</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr *ngFor="let emp of timesheetData.employees">
-          <td>{{ emp.name }}</td>
-          <td
-            *ngFor="let day of daysInMonth"
-            [ngClass]="{
-              'pdf-weekend-cell': isWeekend(day),
-            }"
-          >
-            {{ emp.hours[day] || '' }}
-          </td>          <td>{{ getTotalHours(emp.hours) }}</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Signatures -->
-    <div class="pdf-signatures">
-      <div class="sig-box">
-        <label>Manager Signature</label>
-        <div class="sig-line"></div>
-      </div>
-      <div class="sig-box">
-        <label>Date</label>
-        <div class="sig-line"></div>
-      </div>
-    </div>
-    <div class="footer-note">
-      <p>
-        This timesheet was generated by Risen One | Timesheet System © {{ currentYear }}
-      </p>
-    </div>
-  </div>
+  <app-pdf-timesheet
+    [selectedMonth]="selectedMonth"
+    [currentYear]="currentYear"
+    [daysInMonth]="daysInMonth"
+    [timesheetData]="timesheetData"
+    [isWeekend]="isWeekend.bind(this)"
+    [isHoliday]="isHoliday.bind(this)"
+    [getTotalHours]="getTotalHours.bind(this)"
+  ></app-pdf-timesheet>
 </div>

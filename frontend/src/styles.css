@@ -89,3 +89,208 @@ tr.expanded {
 .mat-sort-header-container {
   justify-content: center;
 }
+
+.month-picker mat-month-view {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Match your “circle button” style */
+.nav-btn.mat-icon-button {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 50% !important;
+  background: #f7f7f7 !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+  color: #333;
+}
+
+.month-field .mat-mdc-form-field-icon-prefix,
+.month-field .mat-mdc-form-field-icon-suffix {
+  margin: 0 6px !important; /* you can change 6px to 8px for more space */
+}
+
+/* Additional padding for the left icon specifically */
+.month-field .mat-mdc-form-field-icon-prefix {
+  margin-left: 10px !important;
+}
+
+.month-field .mat-mdc-form-field-icon-suffix {
+  margin-right: 10px !important;
+}
+
+.nav-btn.mat-icon-button:hover {
+  background: #FBC900 !important;
+  color: #000 !important;
+  transform: translateY(-2px);
+}
+
+.nav-btn.mat-icon-button:active {
+  transform: scale(0.92):
+}
+
+/* Hide the year dropdown toggle (“2025 ▲”), keep chevrons */
+.month-picker .mat-calendar-period-button {
+  display: none !important;
+}
+
+/* Use Montserrat everywhere in the popup */
+.month-picker .mat-calendar {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Header row with chevrons */
+.month-picker .mat-calendar-header {
+  padding: 8px 12px;
+  border-bottom: 1px solid #eee;
+}
+
+/* Chevrons style */
+.month-picker .mat-calendar-previous-button,
+.month-picker .mat-calendar-next-button {
+  color: #333;
+  border-radius: 50%;
+  padding: 4px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.month-picker .mat-calendar-previous-button:hover,
+.month-picker .mat-calendar-next-button:hover {
+  background-color: rgba(251, 201, 0, 0.12);
+  transform: translateY(-1px);
+}
+
+/* Year label in the month view (e.g., “2025” above the months grid) */
+.month-picker .mat-calendar-body-label {
+  font-weight: 600;
+  color: #555;
+}
+
+/* Month cells */
+.month-picker .mat-calendar-body-cell-content {
+  font-weight: 500;
+}
+
+/* Selected month = GOLD bubble */
+.month-picker .mat-calendar-body-selected {
+  background-color: #FBC900 !important;
+  color: #000 !important;
+}
+
+/* Hover effect over month cells */
+.month-picker .mat-calendar-body-cell:not(.mat-calendar-body-disabled)
+  .mat-calendar-body-cell-content:hover {
+  background-color: rgba(251, 201, 0, 0.16);
+}
+/* Gold outline when month selector is focused */
+.month-field .mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__leading,
+.month-field .mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__notch,
+.month-field .mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__trailing {
+  border-color: #FBC900 !important;
+}
+.month-field .mdc-text-field--focused .mdc-floating-label {
+  color: #FBC900 !important;
+}
+
+/* When popup is open, force gold border */
+.month-field.popup-open .mdc-notched-outline__leading,
+.month-field.popup-open .mdc-notched-outline__notch,
+.month-field.popup-open .mdc-notched-outline__trailing {
+  border-color: #FBC900 !important;
+}
+.month-field.popup-open .mdc-floating-label {
+  color: #FBC900 !important;
+}
+
+
+/* Today marker (if shown) – gold outline instead of default */
+.month-picker .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+  border-color: #FBC900;
+}
+/* Remove the underline / extra wrapper from Material */
+.month-field .mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
+}
+
+/* (Optional) If you ever see the day grid flash, keep it subtle */
+.month-picker mat-month-view .mat-calendar-body-selected {
+  background-color: #FBC900 !important;
+  color: #000 !important;
+}
+
+/* ---- Base Project Select Field ---- */
+.project-field {
+  min-width: 260px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Make the outline rounded like the month selector */
+.project-field .mdc-text-field--outlined {
+  border-radius: 999px;
+  background: #ffffff;
+  border-color: #e0e0e0;
+}
+
+/* Gold outline on focus */
+.project-field .mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__leading,
+.project-field .mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__notch,
+.project-field .mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__trailing {
+  border-color: #FBC900 !important;
+}
+
+
+/* Project text styling */
+.project-field .mat-select-value-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  padding-left: 4px;
+}
+
+/* Center the text vertically */
+.project-field .mat-select-trigger {
+  height: 48px;
+  display: flex;
+  align-items: center;
+}
+
+/* Fix floating label centering above the pill */
+.project-field .mdc-text-field--focused .mdc-floating-label {
+    color: #FBC900 !important;
+}
+
+/* Remove the underline / extra wrapper from Material */
+.project-field .mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
+}
+
+/* ---- Dropdown Panel (the list of options) ---- */
+
+/* Panel container – set by panelClass below */
+.project-select-panel {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Option styling */
+mat-option .mat-mdc-option {
+  font-size: 16px;
+}
+
+/* Selected item in dropdown: gold icon + darker text */
+.project-select-panel .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) {
+  color: #FBC900 !important;
+}
+
+/* Selected checkmark color = gold */
+.project-select-panel .mat-pseudo-checkbox,
+.project-select-panel .mat-pseudo-checkbox-checked {
+  color: #FBC900 !important;
+  border-color: #FBC900 !important;
+}
+
+/* Light grey hover background to match your dropdown */
+.project-select-panel .mat-mdc-option:hover:not(.mdc-list-item--disabled) {
+  background-color: rgba(0,0,0,0.06) !important;
+}
+

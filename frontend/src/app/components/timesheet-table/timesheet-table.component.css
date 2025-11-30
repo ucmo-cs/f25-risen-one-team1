@@ -1,0 +1,248 @@
+.table-container {
+  position: relative;
+  max-width: 100%;
+  max-height: 420px;
+  overflow: auto;
+  border-radius: 8px;
+  background: #fff;
+  -webkit-overflow-scrolling: touch;
+  background-clip: padding-box;
+
+}
+
+.timesheet-table {
+  border-collapse: collapse;
+  width: max-content;
+  min-width: 100%;
+  white-space: nowrap;
+  table-layout: fixed;
+  box-sizing: border-box;
+}
+
+/* ==== Table Headers ==== */
+.timesheet-table th {
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  font-weight: 600;
+  font-size: 12px;
+  padding: 8px;
+  white-space: nowrap;
+  height: 32px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  border: 1px solid #fff;
+  box-sizing: border-box;
+}
+
+/* ==== Employee Header Cell (black) ==== */
+.timesheet-table th:first-child {
+  background-color: #000;
+  color: #fff;
+  border-top-left-radius: 8px;
+  /*border-right: 1px solid #fff;*/
+  text-align: left;
+  padding-left: 10px;
+  position: sticky;
+  left: 0;
+  z-index: 6;
+}
+
+/* ==== Employee Column (white rows) ==== */
+.timesheet-table td:first-child {
+  background-color: #fff;
+  font-weight: 600;
+  text-align: left;
+  min-width: 120px;
+  position: sticky;
+  left: 0;
+  z-index: 5;
+  border-right: 1px solid #e0e0e0;
+  box-shadow: 2px 0 0 rgba(0, 0, 0, 0.03);
+}
+
+/* ==== Regular Cells ==== */
+.timesheet-table td {
+  padding: 8px;
+  text-align: center;
+  font-size: 12px;
+  height: 32px;
+  border: 1px solid #e0e0e0;
+  box-sizing: border-box;
+}
+
+/* ==== Prevent Border Bleed ==== */
+.timesheet-table th:not(:first-child),
+.timesheet-table td:not(:first-child) {
+  border-left: 0;
+}
+
+/* ==== Column Widths ==== */
+.timesheet-table th:not(:first-child):not(:last-child),
+.timesheet-table td:not(:first-child):not(:last-child) {
+  width: 32px;
+  min-width: 32px;
+  max-width: 32px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.day-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /*  line-height: 1.1;*/
+}
+.day-number { font-weight: 700; }
+.day-dow { font-size: 9px; opacity: 0.8; }
+
+.weekend-col {
+  background: #f2f2f2;
+  color: #666;
+}
+
+.weekend-cell {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(0,0,0,0.04) 0,
+    rgba(0,0,0,0.04) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+}
+
+.holiday-cell {
+  background-color: #ffe6e6;
+  color: #b30000;
+  font-weight: 700;
+  cursor: help; /* gives hover tooltip */
+}
+
+.current-day {
+  background: rgba(251, 201, 0, 0.15);
+  border-left: 2px solid #FBC900;
+}
+
+/* ==== Totals Row ==== */
+.timesheet-table tfoot td {
+  font-weight: bold;
+  border-top: 2px solid #000;
+}
+
+/* ==== Scrollbar ==== */
+.table-container::-webkit-scrollbar {
+  height: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 10px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+
+/* ==== Hover & Row Effects ==== */
+.timesheet-table tbody tr:nth-child(even) {
+  background-color: #f7f7f7;
+}
+
+.timesheet-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.timesheet-table th {
+  padding: 8px;
+}
+
+/* ==== Rounded Corners ==== */
+.timesheet-table th:last-child {
+  border-top-right-radius: 8px;
+}
+
+/* ==== Placeholder ==== */
+.placeholder {
+  text-align: center;
+  padding: 20px;
+  font-style: italic;
+  color: #777;
+  background-color: #fafafa;
+}
+
+.editing-mode .timesheet-table td:not(:first-child).hour-cell {
+  padding-right: 1px;
+  padding-left: 1px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+
+.edit-input {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 0;
+  box-sizing: border-box;
+  font-size: 12px;
+}
+
+input {
+  background-color: #fffbe6; /* light yellow for editing */
+}
+/* Remove spinners in Chrome, Edge, Safari */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Remove spinners in Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+/* Remove yellow autofill background */
+input[type="number"]:-webkit-autofill,
+input[type="number"]:-webkit-autofill:hover,
+input[type="number"]:-webkit-autofill:focus,
+input[type="number"]:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+  box-shadow: 0 0 0px 1000px white inset !important;
+  background-color: white !important;
+}
+
+/* General background override for number inputs */
+input[type="number"] {
+  background-color: white !important;
+}
+input[type="number"] {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 2px;
+  height: 28px;
+  outline: none;
+}
+
+input[type="number"]:focus {
+  border-color: #FBC900;
+  box-shadow: 0 0 4px rgba(251,201,0,0.4);
+}
+/* Force the month picker (input[type="month"]) to stay white */
+input[type="month"] {
+  background-color: white !important;
+  color: #000;
+}
+
+/* Remove autofill yellow background for month input */
+input[type="month"]:-webkit-autofill,
+input[type="month"]:-webkit-autofill:hover,
+input[type="month"]:-webkit-autofill:focus,
+input[type="month"]:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+  box-shadow: 0 0 0px 1000px white inset !important;
+  background-color: white !important;
+}
