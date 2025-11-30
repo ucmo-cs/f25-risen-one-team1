@@ -1,7 +1,5 @@
 .pdf-sheet {
   width: 100%;
-    min-height: 1000px;
-
   /*padding: 20px 40px;*/
   font-family: 'Montserrat';
   box-sizing: border-box;
@@ -15,30 +13,30 @@
 }
 
 .pdf-logo {
-  height: 240px;
+  height: 360px;
   width: auto;
 }
 
 /* Title */
 .pdf-title {
   text-align: center;
-  font-size: 24px;
+  font-size: 48px;
   font-weight: bold;
-  margin-top: 6px;
-  margin-bottom: 4px;
+  margin-top: 12px;
+  margin-bottom: 8px;
 }
 
 .pdf-month {
   text-align: center;
-  font-size: 16px;
-  margin-bottom: 14px;
+  font-size: 32px;
+  margin-bottom: 28px;
 }
 
 /* Table Wrapper */
 .pdf-table-wrapper {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   overflow: hidden;
   width: 100%;
   transform: scale(1);
@@ -51,13 +49,13 @@
   border-collapse: collapse !important;
   border: 1px solid #000 !important;
   table-layout: fixed;
-  font-size: 8px;
+  font-size: 16px;
 }
 
 .pdf-table th,
 .pdf-table td {
-  border: 0.5px solid #000 !important;
-  padding: 4px 0;
+  border: 1px solid #000 !important;
+  padding: 8px 0;
   background-color: #fff;
   text-align: center;
   white-space: nowrap;
@@ -73,9 +71,9 @@
 .pdf-table th:first-child,
 .pdf-table td:first-child {
   background-color: #fff;
-  width: 75px;
+  width: 150px;
   text-align: left;
-  padding-left: 8px;
+  padding-left: 16px;
   font-weight: 600;
   overflow: hidden;
 }
@@ -83,8 +81,8 @@
 /* Day columns */
 .pdf-table th:not(:first-child):not(:last-child),
 .pdf-table td:not(:first-child):not(:last-child) {
-  height: 18px;
-  width: 16px;
+  height: 36px;
+  width: 32px;
 }
 
 /* Total column */
@@ -111,24 +109,22 @@
   font-weight: bold;
 }
 
-/* Footer Note */
 .pdf-footer {
   text-align: center;
-  margin-top: 400px;
+  margin-top: 800px;
   margin-bottom: 0px;
   font-family: 'Montserrat', sans-serif;
 }
 
-/* The line containing all footer items */
 .footer-line {
-  font-size: 11px;
+  font-size: 22px;
   color: #555;
   opacity: 0.9;
-  letter-spacing: 0.2px;
+  letter-spacing: 0.4px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 6px; /* space between spans */
+  gap: 12px;
 }
 
 /* Vertical bar separator */
@@ -139,8 +135,8 @@
 
 /* Second line */
 .footer-generated {
-  font-size: 10px;
+  font-size: 20px;
   color: #999;
   opacity: 0.75;
-  margin-top: 8px;
+  margin-top: 16px;
 }
