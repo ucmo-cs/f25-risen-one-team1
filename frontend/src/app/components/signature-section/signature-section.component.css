@@ -40,29 +40,29 @@
 .pdf-mode {
   display: flex !important;
   justify-content: center !important;
-  gap: 80px !important;
-  margin-top: 80px !important;
-  padding: 0 20px !important;
+  gap: 40px !important;
+  margin-top: 40px !important;
+  padding: 0 10px !important;
 }
 
 .pdf-mode .signature-box {
-  flex: 0 0 280px !important;
-  min-width: 240px !important;
-  max-width: 300px !important;
+  flex: 0 0 140px !important;
+  min-width: 120px !important;
+  max-width: 150px !important;
   text-align: center !important;
 }
 
 .pdf-mode .signature-label {
-  font-size: 24px !important;
+  font-size: 12px !important;
   font-weight: 500 !important;
-  margin-bottom: 8px !important;
+  margin-bottom: 4px !important;
 }
 
 .pdf-mode .signature-line {
-  border-bottom: 2px solid #000 !important;
-  height: 32px !important;
+  border-bottom: 1px solid #000 !important;
+  height: 16px !important;
   margin: 0 auto !important;
   width: 100% !important;
-  border-radius: 2px !important;
+  border-radius: 1px !important;
   transition: none !important;
 }

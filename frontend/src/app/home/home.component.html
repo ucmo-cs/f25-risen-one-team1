@@ -31,7 +31,7 @@
       </div>
       <!-- Right: actions -->
       <div style="display:flex;align-items:center;gap:12px;margin-left:auto;">
-        <app-button variant="outline" (click)="exportToPDF('portrait')" [disabled]="editing">
+        <app-button variant="outline" (click)="downloadPdf()" [disabled]="editing">
           Export PDF
         </app-button>
         <app-button variant="primary" *ngIf="!editing" (click)="editTimesheet()">
