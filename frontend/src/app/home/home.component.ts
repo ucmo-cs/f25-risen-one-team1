@@ -1,7 +1,8 @@
 // src/app/home/home.component.ts
-import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostListener, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { PdfTimesheetComponent } from '../components/pdf-timesheet/pdf-timesheet.component';
 import { ProjectService, Project } from '../services/project.service';
 import { TimesheetService } from '../services/timesheet.service';
 import { HolidayService } from '../services/holiday.service';
@@ -35,6 +36,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   editing = false;
   editingTimesheet = { projectName: '', timeframe: '', employees: [] as any[] };
+  @ViewChild(PdfTimesheetComponent) pdfComponent!: PdfTimesheetComponent;
+
 
   private timesheetCache = new Map<string, any[]>();
 
@@ -304,49 +307,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
     });
   }
 
-  exportToPDF(orientation: "portrait" | "landscape") {
-    const element = document.getElementById("pdf-export-container");
-    if (!element) return;
+    downloadPdf(): void {
+      if (this.editing) return; // optional guard
 
-    element.style.display = "block"; // temporarily show for rendering
+      if (this.pdfComponent) {
+        this.pdfComponent.downloadPdf();
+      } else {
+        console.error('PDF component not available');
+      }
+    }
 
-    const pdf = new jsPDF({
-      orientation: orientation,
-      unit: "pt",
-      format: "a4"
-    });
-
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const pageHeight = pdf.internal.pageSize.getHeight();
-
-    html2canvas(element, {
-      scale: 3, // high resolution
-      useCORS: true,
-      scrollY: 0
-    }).then(canvas => {
-
-      const imgData = canvas.toDataURL("image/png");
-
-      // Auto scale to fit A4 page exactly
-      const canvasWidth = canvas.width;
-      const canvasHeight = canvas.height;
-
-      const ratio = Math.min(
-        pageWidth / canvasWidth,
-        pageHeight / canvasHeight
-      );
-
-      const imgWidth = canvasWidth * ratio;
-      const imgHeight = canvasHeight * ratio;
-
-      const x = (pageWidth - imgWidth) / 2;
-      const y = 20;
-
-      pdf.addImage(imgData, "PNG", x, y, imgWidth, imgHeight);
-
-      pdf.save(`Timesheet_${this.selectedMonth}_${orientation}.pdf`);
-
-      element.style.display = "none";
-    });
-  }
 }
