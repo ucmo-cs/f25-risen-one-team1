@@ -7,8 +7,6 @@ import { ProjectService, Project } from '../services/project.service';
 import { TimesheetService } from '../services/timesheet.service';
 import { HolidayService } from '../services/holiday.service';
 import { SavingService } from '../services/saving.service';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
 
 
 @Component({

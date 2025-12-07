@@ -127,7 +127,7 @@ tr.expanded {
 }
 
 .nav-btn.mat-icon-button:active {
-  transform: scale(0.92):
+  transform: scale(0.92);
 }
 
 /* Hide the year dropdown toggle (“2025 ▲”), keep chevrons */

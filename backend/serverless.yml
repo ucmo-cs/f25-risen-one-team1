@@ -27,6 +27,7 @@ provider:
     cors:
       allowedOrigins:
         - http://localhost:4200
+        - https://risen-one-timesheet-host.s3.us-east-1.amazonaws.com
       allowedHeaders:
         - Content-Type
         - Authorization
